@@ -1,2 +1,5 @@
-# Pentagent
-LLM-powered pentesting agent
+# Contexts for LLM
+
+## Pentest
+ - Checklist for pentesting
+ - Tools and methods

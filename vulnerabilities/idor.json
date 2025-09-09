@@ -1,0 +1,2610 @@
+{
+  "description": "Idor 관련 사례를 총합해놓은 컨텍스트",
+  "vulnerability_type": "idor",
+  "total_cases": 257,
+  "cases": [
+    {
+      "endpoint": "GraphQL request endpoint for embedded submission forms",
+      "parameter": "UUID (form's UUID)",
+      "bypass_method": "Using reconnaissance to obtain UUIDs of private/inactive embedded submission forms and querying details without proper access control",
+      "exposed_data": [
+        "response efficiency percentage",
+        "intro text",
+        "structured scopes"
+      ],
+      "authorization_check": "Missing or broken access control on embedded submission forms allowing access to private/inactive forms by UUID",
+      "impact_scope": "All private/inactive embedded submission forms accessible via UUIDs obtained through reconnaissance"
+    },
+    {
+      "endpoint": "POST /v1/payment_pages/for_plink",
+      "parameter": "price",
+      "bypass_method": "Manipulating the request to use an archived price due to missing validation",
+      "exposed_data": null,
+      "authorization_check": "Missing validation to ensure both the payment link and price are active",
+      "impact_scope": "Users who can manipulate the payment link request"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": [
+        "user information"
+      ],
+      "authorization_check": "missing or broken authorization allowing viewing another user's information",
+      "impact_scope": "another user"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "chain of 3 vulnerabilities allowing arbitrary charges via the Vouchers site",
+      "exposed_data": [
+        "financial"
+      ],
+      "authorization_check": "missing or broken authorization allowing any U4B user to charge any business account",
+      "impact_scope": "any U4B user can charge any business using the Vouchers site"
+    },
+    {
+      "endpoint": "https://[REDACTED]=[id]",
+      "parameter": "[REDACTED]",
+      "bypass_method": "Parameter manipulation by incrementing or decrementing the ID parameter to access other users' records; PDF data is attached in the body of HTTP 302 redirect responses and can be extracted via a proxy",
+      "exposed_data": [
+        "PHI",
+        "PII",
+        "shot records in PDF form"
+      ],
+      "authorization_check": "Missing or broken authorization check to verify that the authenticated user is authorized to view the requested record; the system redirects with HTTP 302 but still includes the PDF data in the response body",
+      "impact_scope": "Any authenticated user with CAC authentication can access shot records of other individuals who are not their sponsors"
+    },
+    {
+      "endpoint": "/register/forOrder",
+      "parameter": "orderCode",
+      "bypass_method": "Parameter manipulation by supplying victim's order ID with arbitrary email and CSRF token to access victim's data without proper authorization",
+      "exposed_data": [
+        "full address",
+        "phone number",
+        "full name",
+        "all orders",
+        "payment details"
+      ],
+      "authorization_check": "Missing or broken authorization check to verify that the requester is the legitimate owner of the orderCode before returning PII and sensitive data",
+      "impact_scope": "All users who have created an order on The Perfume Shop"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": null,
+      "authorization_check": null,
+      "impact_scope": null
+    },
+    {
+      "endpoint": null,
+      "parameter": "adding recipients to a shared package",
+      "bypass_method": "Bypassing CAC authentication requirement, allowing unauthenticated access",
+      "exposed_data": [
+        "FOUO classified documents",
+        "PII / PHI Privacy Act data",
+        "FOUO//CLOSE HOLD documents",
+        "FOUO//SENSITIVE documents",
+        "FOUO//LIMITED DISTRIBUTION DOCUMENT"
+      ],
+      "authorization_check": "CAC pickup requirement enforcement was bypassed; missing or broken authorization on recipient addition and file access",
+      "impact_scope": "All files uploaded to the system, affecting all users and documents including over 500,000 recent and new documents hourly"
+    },
+    {
+      "endpoint": "/?p=unsubscribe",
+      "parameter": "id",
+      "bypass_method": "Parameter manipulation by changing 'subscribe' to 'unsubscribe' and providing any valid email without additional verification",
+      "exposed_data": null,
+      "authorization_check": "Missing CAPTCHA and email confirmation on unsubscribe action, allowing unauthenticated unsubscribe requests",
+      "impact_scope": "All newsletter subscribers whose email is known"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check allowing access to private hackathon date ranges",
+      "impact_scope": "Potentially private hackathons (though none currently exist)"
+    },
+    {
+      "endpoint": "IBM Your Learning endpoint",
+      "parameter": null,
+      "bypass_method": "changing HTTP method",
+      "exposed_data": null,
+      "authorization_check": "Insecure Direct Object Reference protection",
+      "impact_scope": null
+    },
+    {
+      "endpoint": "/campaign-manager-api/campaignManagerAccounts/[REDACTED]/accountCredits",
+      "parameter": "account",
+      "bypass_method": "Parameter manipulation by replaying the request with victim's campaign id (IDOR vulnerability allowing brute forcing of campaign ids)",
+      "exposed_data": [
+        "financial (campaign wallet details, available amount, used amounts, deposit history)"
+      ],
+      "authorization_check": "Missing or broken authorization check on campaign id parameter allowing access to other users' campaign account data",
+      "impact_scope": "Specific users whose campaign ids are brute forced or guessed by the attacker"
+    },
+    {
+      "endpoint": "https://[REDACTED]/[REDACTED]",
+      "parameter": "[REDACTED]Id",
+      "bypass_method": "Parameter manipulation by changing the [REDACTED]Id parameter to another user's ID",
+      "exposed_data": [
+        "ability to upload attachments to other users' [REDACTED]"
+      ],
+      "authorization_check": "Missing or broken authorization check on the [REDACTED]Id parameter allowing users to upload attachments on behalf of other users",
+      "impact_scope": "Specific users targeted by changing the parameter to their ID"
+    },
+    {
+      "endpoint": "/group/user/ID1",
+      "parameter": "user",
+      "bypass_method": "Parameter manipulation (IDOR - Insecure Direct Object Reference)",
+      "exposed_data": [
+        "unreleased CTF levels information"
+      ],
+      "authorization_check": "Missing or broken authorization check allowing access to other users' group data via manipulated 'user' parameter",
+      "impact_scope": "Users with access to the group endpoint can view unreleased CTF levels intended to be hidden"
+    },
+    {
+      "endpoint": "/app/chat/chat_landing/euf/generated/optimized/1542660523/pages/chat/chat_landing.themes.starbucks.SITE.css",
+      "parameter": null,
+      "bypass_method": "Direct URL access bypassing mandatory input fields",
+      "exposed_data": null,
+      "authorization_check": "Missing validation of mandatory user information before starting chat session",
+      "impact_scope": "Potentially all users interacting with chat agents"
+    },
+    {
+      "endpoint": "clients/promoDataHandler.php",
+      "parameter": null,
+      "bypass_method": "IDOR via parameter manipulation to deactivate any special offer",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check allowing deactivation of any promo",
+      "impact_scope": "All promos on the platform"
+    },
+    {
+      "endpoint": null,
+      "parameter": "user ID",
+      "bypass_method": "parameter manipulation",
+      "exposed_data": [
+        "additional information about users"
+      ],
+      "authorization_check": "missing or broken authorization check on user ID in GraphQL request",
+      "impact_scope": "users of Content Outline Builder"
+    },
+    {
+      "endpoint": "/[REDACTED]/EditUserProfile/Save",
+      "parameter": "userId",
+      "bypass_method": "Parameter manipulation (modifying userId parameter in request)",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken access control allowing users to edit other users' profiles by changing userId parameter",
+      "impact_scope": "Mass full account takeovers (all users)"
+    },
+    {
+      "endpoint": "/users/invite-user.php",
+      "parameter": "id",
+      "bypass_method": "Parameter manipulation by changing the user ID in the GET request",
+      "exposed_data": [
+        "email address (PII)"
+      ],
+      "authorization_check": "Missing verification that the user ID belongs to the requester's team account",
+      "impact_scope": "All users within the sequential user ID range (00010006 to 19920500+)"
+    },
+    {
+      "endpoint": "/_post/usuario_actualizar.php",
+      "parameter": "[REDACTED]",
+      "bypass_method": "Parameter manipulation (changing the user ID in the POST request to another user's ID)",
+      "exposed_data": [
+        "email address"
+      ],
+      "authorization_check": "Missing or broken authorization check to verify that the authenticated user is allowed to update the specified user ID's email",
+      "impact_scope": "All users (any authenticated user can change the email of any other user)"
+    },
+    {
+      "endpoint": "/admin/api/xauth",
+      "parameter": "id",
+      "bypass_method": "Parameter manipulation by inputting high privileged user's staff member id in the 'id' parameter using low privileged user's access token",
+      "exposed_data": [
+        "KITCRM authorization token",
+        "high privileged user's chat messages with kit"
+      ],
+      "authorization_check": "Missing or broken authorization check allowing low privileged users to access or create high privileged user's KITCRM authorization token",
+      "impact_scope": "Specific roles (low privileged users can access high privileged users' tokens and communications)"
+    },
+    {
+      "endpoint": "/api/invitations/{invitation_id}",
+      "parameter": "invitation_id",
+      "bypass_method": "Parameter manipulation by changing the invitation ID in DELETE request to delete users from other organizations",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check to verify that the user has permission to delete the invitation within the organization context",
+      "impact_scope": "Users with Read-Only role can delete invited users across organizations"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "manipulation of Crew invitation identifiers to delete invitations from arbitrary Crews to arbitrary Social Club users",
+      "exposed_data": null,
+      "authorization_check": "missing or insufficient checks to verify that only the user who sent the Crew invite or an authorized member of the Crew can delete the Crew invitation",
+      "impact_scope": "arbitrary Crews and arbitrary Social Club users (multiple users)"
+    },
+    {
+      "endpoint": null,
+      "parameter": "email (via numeric ID)",
+      "bypass_method": "parameter manipulation by changing the email via numeric ID",
+      "exposed_data": null,
+      "authorization_check": "missing authorization check on changing email via numeric ID",
+      "impact_scope": "mass account takeover (all users)"
+    },
+    {
+      "endpoint": "https://[REDACTED]/signIn/account (POST request to update profile)",
+      "parameter": "ID",
+      "bypass_method": "Parameter manipulation by changing the ID parameter in the request to another user's ID",
+      "exposed_data": [
+        "email address"
+      ],
+      "authorization_check": "Missing verification that the user owns the account ID being modified; no requirement of old password to change email; no restriction on POST actions for different account IDs",
+      "impact_scope": "Specific roles/users (any user can takeover another user's account by changing their email)"
+    },
+    {
+      "endpoint": "/graphql",
+      "parameter": "organization id (leaked via graphql query)",
+      "bypass_method": "Using a GraphQL query to leak the organization's id and then manipulating invitation API to escalate privileges",
+      "exposed_data": [
+        "organization id"
+      ],
+      "authorization_check": "Missing or broken check on invitation API to verify if the user is authorized to escalate privileges or modify organization roles",
+      "impact_scope": "Specific roles (attacker account escalates from reader to administrator within a target organization)"
+    },
+    {
+      "endpoint": "/nextcloud/index.php/settings/personal/authtokens/{id}",
+      "parameter": "id",
+      "bypass_method": "Parameter manipulation (changing the app password ID in the JSON body)",
+      "exposed_data": null,
+      "authorization_check": "Missing authorization check to verify that the authenticated user owns the app password ID being modified",
+      "impact_scope": "All authenticated users can modify app password permissions of any other user"
+    },
+    {
+      "endpoint": null,
+      "parameter": "attributes",
+      "bypass_method": "Indirectly setting relation fields like issue_ids within the attributes field to bypass filtering of '_ids' parameters",
+      "exposed_data": [
+        "random resources of other users"
+      ],
+      "authorization_check": "Missing or broken authorization check allowing modification of relations between objects leading to access of other users' resources",
+      "impact_scope": "all users on gitlab.com"
+    },
+    {
+      "endpoint": "/[REDACTED]/[REDACTED]/[REDACTED]={search_id}",
+      "parameter": "search_id",
+      "bypass_method": "Parameter manipulation by changing the search_id in the URL to another user's search_id",
+      "exposed_data": null,
+      "authorization_check": "Missing verification that the user deleting the saved search is the legitimate owner of that search",
+      "impact_scope": "All users (attacker can delete saved searches of any user by bruteforcing search_id)"
+    },
+    {
+      "endpoint": "/JOINOnline/Board/SubmitDoc",
+      "parameter": "Id",
+      "bypass_method": "Parameter manipulation (changing the Id parameter to another user's numeric ID)",
+      "exposed_data": [
+        "demographic details",
+        "biographical information",
+        "PII"
+      ],
+      "authorization_check": "Missing or broken authorization check to verify that the user is allowed to modify the specified user's demographic details",
+      "impact_scope": "Specific users (other individual users whose Id is known or guessed)"
+    },
+    {
+      "endpoint": "/app/getUserNotes",
+      "parameter": "userEmail",
+      "bypass_method": "parameter manipulation (replacing userEmail with victim's email)",
+      "exposed_data": [
+        "PII"
+      ],
+      "authorization_check": "Missing or broken authorization check to verify that the requester is authorized to access the data of the specified userEmail",
+      "impact_scope": "all users (anyone knowing a victim's email can access their PII)"
+    },
+    {
+      "endpoint": "/desktopmodules/eventscalendar/downloaddoc.aspx",
+      "parameter": "f",
+      "bypass_method": "parameter manipulation (appending ?f=~/downloaddoc.aspx to the URL)",
+      "exposed_data": [
+        "sensitive information about the web application or system"
+      ],
+      "authorization_check": "missing or broken authorization check on file download parameter",
+      "impact_scope": "attackers who can craft the URL (potentially all users or unauthenticated users)"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "IDOR allowing publishing articles using other users' newsletters",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check to verify ownership of the newsletter before allowing article publication",
+      "impact_scope": "Specific roles (attackers who completed ID-verification and background check) able to publish articles using other users' newsletters"
+    },
+    {
+      "endpoint": "/",
+      "parameter": "transcriptId",
+      "bypass_method": "Parameter manipulation by changing transcriptId to shared file's transcriptId",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check to verify if the user has permission to rename the shared file",
+      "impact_scope": "Specific roles - unauthorized shared users"
+    },
+    {
+      "endpoint": null,
+      "parameter": "[REDACTED]",
+      "bypass_method": "parameter manipulation",
+      "exposed_data": [
+        "barcode",
+        "expiration date"
+      ],
+      "authorization_check": "missing or broken authorization check on parameter value allowing access to other users' data",
+      "impact_scope": "other users"
+    },
+    {
+      "endpoint": "https://customers.gitlab.com/customers",
+      "parameter": "customer[uid]",
+      "bypass_method": "Parameter manipulation by changing the customer[uid] field to victim's userId, which is predictable and not secret",
+      "exposed_data": [
+        "PII (personal information such as name, address, email)",
+        "Financial data (credit card information)",
+        "Subscription details",
+        "List of teams the victim owns"
+      ],
+      "authorization_check": "Missing or broken authorization check on updating customer account data allowing linking attacker account to victim's account by modifying uid parameter",
+      "impact_scope": "Single user (victim) affected per attack, but attacker can manipulate victim's subscriptions and billing"
+    },
+    {
+      "endpoint": null,
+      "parameter": "author_id",
+      "bypass_method": "parameter manipulation in form or POST submission",
+      "exposed_data": null,
+      "authorization_check": "missing validation to ensure the new author is allowed to be an author of the entry",
+      "impact_scope": "users with permission to edit entries in the control panel"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": [
+        "Personal Information"
+      ],
+      "authorization_check": "Missing or broken authorization allowing access to any user's personal information",
+      "impact_scope": "All users"
+    },
+    {
+      "endpoint": "/api/v1/permission/user/{USER_ID}/",
+      "parameter": "USER_ID",
+      "bypass_method": "Manipulating the USER_ID parameter to access other users' information without proper authorization checks",
+      "exposed_data": [
+        "personal information",
+        "user account details",
+        "PII"
+      ],
+      "authorization_check": "Missing or broken authorization check to verify that the requesting user is allowed to access the data of the specified USER_ID",
+      "impact_scope": "all users"
+    },
+    {
+      "endpoint": "TikTok seller endpoint",
+      "parameter": null,
+      "bypass_method": "IDOR allowing any user to create product discounts for shops they did not own",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken ownership verification for shop discount creation",
+      "impact_scope": "Any user (including those who do not own the shop)"
+    },
+    {
+      "endpoint": null,
+      "parameter": "user id",
+      "bypass_method": "parameter manipulation (accessing another user's profile by using their user id)",
+      "exposed_data": [
+        "first name",
+        "last name",
+        "title",
+        "company",
+        "bio"
+      ],
+      "authorization_check": "missing authorization check to verify that the authenticated user is allowed to modify the profile associated with the provided user id",
+      "impact_scope": "any authenticated user with access to another user's user id"
+    },
+    {
+      "endpoint": "/remote.php/dav/calendars/{userId}",
+      "parameter": "enable-birthday-calendar",
+      "bypass_method": "Low privileged user intercepted and manipulated the POST request to enable Birthday Contacts for any user by specifying arbitrary userId",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check allowing low privileged users to enable Birthday Contacts feature for other users including Admins and SuperAdmins",
+      "impact_scope": "All users including Admins and SuperAdmins"
+    },
+    {
+      "endpoint": "/",
+      "parameter": "projectId",
+      "bypass_method": "Parameter manipulation by using another user's projectId in the API call",
+      "exposed_data": null,
+      "authorization_check": "Missing authorization check to verify that the user owns the projectId being updated",
+      "impact_scope": "Specific other users (ability to update folder names of other users)"
+    },
+    {
+      "endpoint": "/teams/embedded_submissions/draft_sync",
+      "parameter": [
+        "draft_id",
+        "attachment_ids",
+        "tracer"
+      ],
+      "bypass_method": "Authorization was bypassed by calling the interactor interact_without_authorization with draft_id, attachment_ids, and tracer parameters without verifying ownership or user authorization",
+      "exposed_data": [
+        "deleted attachments from other HackerOne users"
+      ],
+      "authorization_check": "Missing authorization check in the interactor ReportDrafts::UpdateOrCreate when called via draft_sync action; no verification that the user owns or is authorized to access the ReportDraft identified by draft_id and tracer",
+      "impact_scope": "Potentially all users who have deleted attachments in ReportDrafts accessible via the vulnerable endpoint and parameters"
+    },
+    {
+      "endpoint": "/desktopmodules/eventscalendar/downloaddoc.aspx",
+      "parameter": "f",
+      "bypass_method": "Parameter manipulation by appending a specially crafted value to the 'f' parameter",
+      "exposed_data": [
+        "sensitive information about the web application and system"
+      ],
+      "authorization_check": "Missing or broken authorization check on file download functionality allowing arbitrary file download",
+      "impact_scope": "Authorized users who have completed ID-verification and background check (hacker with verified identity)"
+    },
+    {
+      "endpoint": "Business.TikTok.com endpoint",
+      "parameter": [
+        "org_id",
+        "account_id"
+      ],
+      "bypass_method": "Insecure Direct Object Reference (IDOR) via manipulation of org_id and account_id parameters",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check allowing 'Analyst' level users to act on other users' ad accounts",
+      "impact_scope": "Authenticated users with 'Analyst' level permissions could affect other users' ad accounts"
+    },
+    {
+      "endpoint": null,
+      "parameter": "file IDs",
+      "bypass_method": "Iterating file IDs to access resumes without proper authorization",
+      "exposed_data": [
+        "resumes (potentially containing PII)"
+      ],
+      "authorization_check": "Missing or broken access control allowing recruiters to download resumes without appropriate access",
+      "impact_scope": "Recruiters could access resumes of applicants from different job posts and resumes uploaded by other recruiters without candidate application"
+    },
+    {
+      "endpoint": "platform.streamlabs.com/api/v1/store/whitelist",
+      "parameter": "user_id",
+      "bypass_method": "Parameter manipulation by changing the user_id in the JSON request to another account's ID",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check on the user_id parameter allowing users to submit forms on behalf of other users",
+      "impact_scope": "Multiple users (attacker can submit forms as many different accounts)"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "Insecure Direct Object Reference (IDOR) allowing access to Learning Groups URLs without subscription",
+      "exposed_data": [
+        "Discussion Group URL"
+      ],
+      "authorization_check": "Missing or broken authorization check restricting access to paid subscribers only",
+      "impact_scope": "Users without paid subscription (attackers who completed ID-verification and background check)"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "parameter manipulation",
+      "exposed_data": null,
+      "authorization_check": "missing authorization check to verify ownership before changing 'Who Can View' privacy setting on Memories",
+      "impact_scope": "all users (any user could change privacy settings of another user's Memory)"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": [
+        "emails"
+      ],
+      "authorization_check": "Missing or broken authorization check allowing access to emails of other users",
+      "impact_scope": "Users who have completed ID verification (authenticated users)"
+    },
+    {
+      "endpoint": "GraphQL query endpoint (exact path not specified)",
+      "parameter": "profile image or thumbnail identifier (exact parameter name not specified)",
+      "bypass_method": "Lack of proper authorization check allowed deletion of other users' profile images via GraphQL query parameter manipulation",
+      "exposed_data": [
+        "profile images",
+        "thumbnails"
+      ],
+      "authorization_check": "Missing or broken authorization check to verify ownership before allowing deletion of profile images",
+      "impact_scope": "All users (ability to delete other users' profile images)"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check allowing any user with access to a program to suspend and resume the HackerOne Gateway product for that program",
+      "impact_scope": "Any user with access to the program"
+    },
+    {
+      "endpoint": "XXX/XXXXX.php",
+      "parameter": "request_type",
+      "bypass_method": "Parameter manipulation by changing request_type and using obtained user_id, menu_set_id, and res_id without ownership verification",
+      "exposed_data": [
+        "user_id",
+        "menu_set_id",
+        "special menus of any restaurant"
+      ],
+      "authorization_check": "No check to verify if the requester owns or is authorized to manage the restaurant or its menus",
+      "impact_scope": "All restaurants on the platform regardless of ownership"
+    },
+    {
+      "endpoint": "https://partners.shopify.com",
+      "parameter": null,
+      "bypass_method": "Insufficient permission enforcement allowing 'Manage apps' users to access shop info and staff names",
+      "exposed_data": [
+        "shop information",
+        "staff account names"
+      ],
+      "authorization_check": "Missing or broken authorization check restricting access to shop admin area data based on user permissions",
+      "impact_scope": "Users with 'Manage apps' permission"
+    },
+    {
+      "endpoint": "TikTok Family Pairing endpoint",
+      "parameter": null,
+      "bypass_method": "Insecure Direct Object Reference (IDOR) allowing unauthorized access via direct object reference manipulation",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check on object references in the Family Pairing API",
+      "impact_scope": "Potentially multiple users, as it could be used to disable various features across accounts"
+    },
+    {
+      "endpoint": null,
+      "parameter": "userid",
+      "bypass_method": "parameter manipulation (assigning a message to any userid)",
+      "exposed_data": [
+        "message assignment information"
+      ],
+      "authorization_check": "missing or broken check to verify if the user is authorized to assign messages to the specified userid",
+      "impact_scope": "any user who can assign messages to any userid (potentially all users)"
+    },
+    {
+      "endpoint": "/at/load-reports/profile/<profile_id>",
+      "parameter": "profile_id",
+      "bypass_method": "Parameter manipulation (changing profile_id to access other users' data)",
+      "exposed_data": [
+        "devices information",
+        "licenses information"
+      ],
+      "authorization_check": "Missing or broken authorization check on profile_id parameter allowing access to other users' data",
+      "impact_scope": "All users (an attacker can access victim information via profile id)"
+    },
+    {
+      "endpoint": "AddTagToAssets",
+      "parameter": "tagId",
+      "bypass_method": "Parameter manipulation by bruteforcing and replacing the base64-encoded tagId parameter",
+      "exposed_data": [
+        "custom tags of victim user"
+      ],
+      "authorization_check": "Missing or broken authorization check on access to tags, allowing disclosure of victim's custom tags without interaction",
+      "impact_scope": "Specific users (victim's custom tags disclosed to attacker)"
+    },
+    {
+      "endpoint": null,
+      "parameter": [
+        "trip ID",
+        "driver ID"
+      ],
+      "bypass_method": "Parameter manipulation by linking own valid trip ID to any driver ID",
+      "exposed_data": null,
+      "authorization_check": "Missing validation to ensure that feedback submission is only for drivers actually ridden with on the trip",
+      "impact_scope": "Authenticated passengers limited to trips they legitimately owned; each trip could affect only one driver rating at a time"
+    },
+    {
+      "endpoint": "https://moneybird.com/user/accountant_company/edit",
+      "parameter": null,
+      "bypass_method": "parameter manipulation",
+      "exposed_data": null,
+      "authorization_check": "missing or insufficient check to verify user permissions when changing accountant company name",
+      "impact_scope": "specific roles (accountant company names other than user's own)"
+    },
+    {
+      "endpoint": "/JOINOnline/UpdateProfile/<user-id>",
+      "parameter": "user-id",
+      "bypass_method": "parameter manipulation",
+      "exposed_data": [
+        "email addresses",
+        "names",
+        "PII"
+      ],
+      "authorization_check": "missing or broken authorization check on user-id parameter allowing access to other users' profiles",
+      "impact_scope": "all users"
+    },
+    {
+      "endpoint": "https://steamcommunity.com/comment/submit",
+      "parameter": [
+        "contributor id",
+        "file id",
+        "extended_data (contributor id and app id)",
+        "count"
+      ],
+      "bypass_method": "Parameter manipulation in the comment submission request to change contributor id, file id, and extended_data to those of the target workshop item",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken check to verify ownership of the game before allowing comment posting on workshop items",
+      "impact_scope": "Users who do not own the game can post comments on workshop items restricted to owners only"
+    },
+    {
+      "endpoint": "ads.tiktok.com",
+      "parameter": "draft_order_id",
+      "bypass_method": "Parameter manipulation allowing access to other users' tickets",
+      "exposed_data": [
+        "support tickets"
+      ],
+      "authorization_check": "Missing or broken authorization check on draft_order_id parameter to verify ownership before allowing deletion",
+      "impact_scope": "Other users' support tickets (multiple users)"
+    },
+    {
+      "endpoint": "/v1/account/destroy",
+      "parameter": [
+        "email",
+        "authPW"
+      ],
+      "bypass_method": "Session misbinding by sending victim's email and authPW in JSON payload while authenticated as attacker",
+      "exposed_data": [
+        "email",
+        "password hash"
+      ],
+      "authorization_check": "Server failed to verify that the session making the deletion request belongs to the account being deleted",
+      "impact_scope": "Any user account registered with SSO (Google login) can be deleted by an authenticated attacker"
+    },
+    {
+      "endpoint": "/apps/deck/stacks/{id}",
+      "parameter": "boardId",
+      "bypass_method": "Parameter manipulation by changing the boardId to another user's boardId in the PUT request",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken access control allowing users to modify stacks on boards they do not own",
+      "impact_scope": "All users (any authenticated user can add lists with tasks to any other user's board)"
+    },
+    {
+      "endpoint": "/checkout_question (implied from context)",
+      "parameter": "comment_id",
+      "bypass_method": "Using an account registered on a different site (Mysite.com) to access and manipulate data on another site's Judge.me account (example.com) without proper authorization checks",
+      "exposed_data": [
+        "buyer email",
+        "buyer name and surname",
+        "text of the question",
+        "other user data related to checkout questions",
+        "ability to publish/hide comments on other users' accounts"
+      ],
+      "authorization_check": "Missing or broken authorization that should restrict access and actions to only the user's own Judge.me account and associated data; lack of proper ownership verification when accessing or modifying comments and buyer information",
+      "impact_scope": "All users of Judge.me on different sites; attacker can access and manipulate data across multiple accounts/sites without owning them"
+    },
+    {
+      "endpoint": "/apps/deck/cards/{card_id}/attachment/{attachment_id}",
+      "parameter": "attachment_id",
+      "bypass_method": "IDOR via predictable incremental numeric attachment IDs allowing brute force access",
+      "exposed_data": [
+        "user uploaded files",
+        "potentially sensitive attachments"
+      ],
+      "authorization_check": "Missing access control to verify if the requesting user has permission to view or delete the attachment; no proper verification of board membership or read access",
+      "impact_scope": "All users of the particular provider (multi-user access)"
+    },
+    {
+      "endpoint": "[REDACTED]",
+      "parameter": "member_id",
+      "bypass_method": "parameter manipulation",
+      "exposed_data": null,
+      "authorization_check": "missing or broken authorization on member_id parameter allowing IDOR",
+      "impact_scope": "complete takeover of user accounts (potentially all users)"
+    },
+    {
+      "endpoint": null,
+      "parameter": "email address ID",
+      "bypass_method": "parameter manipulation",
+      "exposed_data": [
+        "secondary email addresses"
+      ],
+      "authorization_check": "delete operation was not properly scoped to a particular user",
+      "impact_scope": "all users (any user could delete secondary email addresses in other users' accounts)"
+    },
+    {
+      "endpoint": "/comments/",
+      "parameter": "comment id",
+      "bypass_method": "Parameter manipulation by tampering with the comment ID in the request",
+      "exposed_data": [
+        "comment content"
+      ],
+      "authorization_check": "Missing or broken authorization check on comment ownership allowing users to edit or delete comments of other users",
+      "impact_scope": "Any user with valid privileges can affect comments of other users"
+    },
+    {
+      "endpoint": "/wpcom/v2/happytools/external/v1/schedule/afk-requests/12346",
+      "parameter": "responder_user_id",
+      "bypass_method": "Parameter manipulation by changing responder_user_id to another user's ID",
+      "exposed_data": null,
+      "authorization_check": "Missing proper authorization checks to verify that the responder_user_id belongs to the authenticated user or authorized organization member",
+      "impact_scope": "Specific roles - users who are members of other organizations; attacker can approve/decline AFK requests on behalf of other users"
+    },
+    {
+      "endpoint": "/api/document/x",
+      "parameter": "x",
+      "bypass_method": "Direct object reference via parameter manipulation without authentication",
+      "exposed_data": [
+        "Unclass//FOUO documents",
+        "ITAR RESTRICTED / EXPORT CONTROLLED DATA",
+        "Confidential / proprietary vendor data",
+        "Technical specifications on military technology including weapons systems, surveillance systems, missiles, ballistics"
+      ],
+      "authorization_check": "Missing authentication and access control on document retrieval endpoint",
+      "impact_scope": "All public users (unauthenticated access to tens of thousands of documents)"
+    },
+    {
+      "endpoint": "/api/v1/user/preferences/{user1-uuid}",
+      "parameter": "user1-uuid",
+      "bypass_method": "Parameter manipulation by changing the user UUID in the request URL and using another user's cookie to authenticate",
+      "exposed_data": [
+        "user data (first name, last name, email, role, signature)",
+        "authentication cookies",
+        "account access via password reset"
+      ],
+      "authorization_check": "Missing or broken authorization check to verify that the authenticated user can only update their own preferences and not those of other users",
+      "impact_scope": "All users within the same team; attacker with USER role can affect any user including admins"
+    },
+    {
+      "endpoint": "/app/items",
+      "parameter": "issue",
+      "bypass_method": "Parameter manipulation (changing the issue ID in the request to another user's issue ID)",
+      "exposed_data": [
+        "images",
+        "descriptions",
+        "titles",
+        "author",
+        "publication",
+        "section"
+      ],
+      "authorization_check": "Missing or broken authorization check to verify ownership of the issue ID when adding media",
+      "impact_scope": "All users (ability to modify other users' issues)"
+    },
+    {
+      "endpoint": "/api/v1/graphql",
+      "parameter": "FetchMemberships operation",
+      "bypass_method": "Inadequate validation of user permissions allowing authorization bypass",
+      "exposed_data": [
+        "names",
+        "email addresses",
+        "roles",
+        "IDs of current team members"
+      ],
+      "authorization_check": "Validation of user permissions to confirm association with the organization",
+      "impact_scope": "Individuals no longer associated with the organization"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": [
+        "delivery address"
+      ],
+      "authorization_check": "missing or broken authorization allowing access to other user's delivery address",
+      "impact_scope": "other users"
+    },
+    {
+      "endpoint": null,
+      "parameter": "strUserId",
+      "bypass_method": "parameter manipulation",
+      "exposed_data": null,
+      "authorization_check": "missing or broken authorization check on user ID parameter allowing deletion of other users' profile images",
+      "impact_scope": "potentially all users (ability to delete other users' profile images)"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "paying a price lower than the price set for LinkedIn Jobs (price manipulation)",
+      "exposed_data": null,
+      "authorization_check": "missing or broken price validation allowing payment below the set price",
+      "impact_scope": "attackers who have completed both ID-verification and a background check"
+    },
+    {
+      "endpoint": "/:namespace_id/:project_id/uploads/:secret/:filename",
+      "parameter": [
+        "secret",
+        "filename"
+      ],
+      "bypass_method": "Importing a modified exported project archive with known secret and filename to overwrite uploads of other users",
+      "exposed_data": null,
+      "authorization_check": "Missing authorization check to prevent project import from modifying uploads belonging to other users",
+      "impact_scope": "All users who have uploads with known secret and filename, potentially affecting multiple users across projects"
+    },
+    {
+      "endpoint": "/voyager/api/voyagerAssessmentsDashSkillAssessmentAttemptReports/urn:li:fsd_skillAssessmentAttemptReport:(urn:li:fsd_profile:<fsd_profile-ID>,urn:li:skill:<SKILL-TEST-ID>,1)",
+      "parameter": "fsd_profile-ID, skill-ID",
+      "bypass_method": "Using public fsd_profile-ID and skill-ID parameters to access skill test results without proper authorization",
+      "exposed_data": [
+        "skill test results"
+      ],
+      "authorization_check": "Missing or broken authorization check to restrict access to skill test results based on badge earned or privacy settings",
+      "impact_scope": "Any user knowing the fsd_profile-ID and skill-ID (potentially all users)"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "Insecure Direct Object Reference (IDOR) in message search feature allowing querying messages of other users' groups",
+      "exposed_data": [
+        "messages",
+        "documents",
+        "attachments",
+        "pictures"
+      ],
+      "authorization_check": "Missing or broken authorization check on access to messages/docs/attachments in other users' groups during search",
+      "impact_scope": "Groups of other users (cross-tenant), potentially all users' groups accessible via search"
+    },
+    {
+      "endpoint": "GraphQL node interface",
+      "parameter": "UUID",
+      "bypass_method": "Direct querying of EmbeddedSubmissionForm object and specifying UUID to access Team object data without proper authorization",
+      "exposed_data": [
+        "private program policy",
+        "terms",
+        "resolved bug count",
+        "bounty table",
+        "sensitive program details"
+      ],
+      "authorization_check": "Proper authorization check on requests for embedded submission form nodes to prevent unauthorized UUID access",
+      "impact_scope": "Any unauthenticated user"
+    },
+    {
+      "endpoint": null,
+      "parameter": "group number",
+      "bypass_method": "parameter manipulation",
+      "exposed_data": [
+        "group name"
+      ],
+      "authorization_check": "insufficient validation on the specified group number",
+      "impact_scope": "incrementing license count and disclosure related to other user groups"
+    },
+    {
+      "endpoint": "/php/client_manage_handler",
+      "parameter": "photo_ids",
+      "bypass_method": "Parameter manipulation by changing photo_ids to delete images from other stores without ownership verification",
+      "exposed_data": null,
+      "authorization_check": "Missing ownership check for res_id and photo_ids allowing deletion of photos from stores not owned by the requester",
+      "impact_scope": "All users with access to the endpoint could delete photos from other stores by guessing or enumerating photo_ids"
+    },
+    {
+      "endpoint": "/api/graphql",
+      "parameter": "id",
+      "bypass_method": "Parameter manipulation by guessing and decrementing incremental Model IDs",
+      "exposed_data": [
+        "Machine Learning Models",
+        "Model versions",
+        "Model metadata",
+        "Candidate details",
+        "CI job details",
+        "Pipeline and merge request info",
+        "User info related to models"
+      ],
+      "authorization_check": "Missing or broken authorization check on access to Model Registry entries allowing access to private models by ID",
+      "impact_scope": "All models in the Machine Learning Model Registry, including private models, accessible by any authenticated user"
+    },
+    {
+      "endpoint": "activateFuelCard",
+      "parameter": "card ID number",
+      "bypass_method": "sequential enumeration of card ID parameter to retrieve associated driver UUIDs",
+      "exposed_data": [
+        "driver UUIDs"
+      ],
+      "authorization_check": "missing or broken authorization check allowing access to driver UUIDs based on card ID without proper access control",
+      "impact_scope": "all users with knowledge of card IDs (potentially all drivers)"
+    },
+    {
+      "endpoint": "https://shopify-exchange-private.s3.amazonaws.com/attachments/<filename>",
+      "parameter": "filename",
+      "bypass_method": "Knowing or guessing the filename allows replacing the file without proper authorization",
+      "exposed_data": null,
+      "authorization_check": "Missing authorization check on file upload/replacement allowing any user who knows the filename to overwrite files",
+      "impact_scope": "All users who have access to the file storage and can guess or know filenames"
+    },
+    {
+      "endpoint": "/users/{username}/starred.json",
+      "parameter": null,
+      "bypass_method": "Accessing the starred projects API endpoint without proper authorization despite profile being private",
+      "exposed_data": [
+        "starred projects"
+      ],
+      "authorization_check": "Missing or broken authorization check on the starred projects API endpoint for private profiles",
+      "impact_scope": "Single user (the private profile owner)"
+    },
+    {
+      "endpoint": null,
+      "parameter": [
+        "team_id",
+        "user_id"
+      ],
+      "bypass_method": "Parameter manipulation (modifying team_id and user_id in the request to remove users from teams without proper authorization)",
+      "exposed_data": [
+        "PII (usernames, team names)"
+      ],
+      "authorization_check": "Missing object-level access control checks to verify if the user has permission to remove users from the specified team_id; lack of validation to ensure the user submitting the request owns or has rights over the team_id and user_id involved",
+      "impact_scope": "All users in all teams, including owners and admins; any authenticated user can remove any user from any team"
+    },
+    {
+      "endpoint": "/api/v1/messages/{message_id}/",
+      "parameter": "message_id",
+      "bypass_method": "Missing permission check on DELETE request allowing deletion of messages by unauthorized users via manipulated message_id parameter",
+      "exposed_data": null,
+      "authorization_check": "Missing permission check to verify if the user is authorized to delete the specified private message",
+      "impact_scope": "All users' private messages on RedditGifts.com (4.4 million messages)"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "manipulating specific parameters in the requests",
+      "exposed_data": [
+        "profile photos",
+        "pets data"
+      ],
+      "authorization_check": "proper authorization checks to prevent unauthorized modifications to other users' accounts",
+      "impact_scope": "any user account (unauthorized modifications to other users' accounts)"
+    },
+    {
+      "endpoint": "TikTok Seller endpoint",
+      "parameter": "promotion_id",
+      "bypass_method": "Insecure Direct Object Reference via manipulation of the promotion_id parameter",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check on the promotion_id parameter allowing unauthorized modification",
+      "impact_scope": "Single user (promotion could be removed from a user's account)"
+    },
+    {
+      "endpoint": "/api/customer/reservation/history",
+      "parameter": "OTP",
+      "bypass_method": "Providing a fixed OTP value (111111) to retrieve data without proper authorization",
+      "exposed_data": [
+        "fabricated test user reservation data"
+      ],
+      "authorization_check": "Missing or broken authorization check allowing access with a fixed OTP without verifying user identity",
+      "impact_scope": "Anyone (unauthenticated users) could retrieve reservation data"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "parameter manipulation of LinkedIn Premium pricing",
+      "exposed_data": null,
+      "authorization_check": "missing or broken validation on pricing modification for LinkedIn Premium subscription",
+      "impact_scope": "single user (individual account level)"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": [
+        "sensitive customer data"
+      ],
+      "authorization_check": null,
+      "impact_scope": null
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": [
+        "competitors analytics data"
+      ],
+      "authorization_check": "Missing or broken authorization check allowing company page administrators to access competitors' analytics of other companies",
+      "impact_scope": "administrators of company pages"
+    },
+    {
+      "endpoint": "/tws/ (clone scorecard function)",
+      "parameter": "nTwsUserScorecard.Template",
+      "bypass_method": "Parameter manipulation via interceptor to change the scorecard name to that of a victim's scorecard",
+      "exposed_data": [
+        "sensitive report data"
+      ],
+      "authorization_check": "Missing or broken authorization check to verify ownership of scorecard before cloning",
+      "impact_scope": "All users (any attacker user can clone and read other users' reports)"
+    },
+    {
+      "endpoint": "POST /projects/:id/merge_requests/:merge_request_iid/status_check_responses",
+      "parameter": "external_status_check_id",
+      "bypass_method": "Parameter manipulation to specify arbitrary external_status_check_id values",
+      "exposed_data": [
+        "Private project name and ID",
+        "Name of status check",
+        "Private address to external status check tool",
+        "Name and ID of protected branch connected to the status check",
+        "Access rules to protected branch",
+        "Name of user allowed to access protected branch"
+      ],
+      "authorization_check": "Missing or broken authorization check on external_status_check_id parameter allowing access to any external status check regardless of project membership or permissions",
+      "impact_scope": "Any authenticated user on GitLab.com with an Ultimate trial (regular account with trial) can access data about any external status check on the instance, including those from private projects"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "session management flaw allowing logout from one dashboard not to log out from another",
+      "exposed_data": null,
+      "authorization_check": "session invalidation across related dashboards was missing or broken",
+      "impact_scope": "users with local access to Cloudflare Dashboard and Zero Trust Dashboard"
+    },
+    {
+      "endpoint": "/api/v1/ga/user_status/",
+      "parameter": "calendar_id",
+      "bypass_method": "bruteforcing the calendar_id parameter to enumerate calendars without proper authorization checks",
+      "exposed_data": [
+        "business data",
+        "number of unique users who have created calendars",
+        "number of users who have connected their Google Analytics account",
+        "number of calendars owned by a victim user",
+        "number of calendars linked to a Google Analytics account"
+      ],
+      "authorization_check": "Missing verification that the user making the request is the owner of the calendar or was invited to access it",
+      "impact_scope": "Multiple users (all users whose calendar_id can be enumerated), including victims whose user_id is known"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "Horizontal privilege escalation via parameter manipulation",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken horizontal access control allowing read/write access to resources not associated with the current user",
+      "impact_scope": "Users who have completed both ID-verification and background check"
+    },
+    {
+      "endpoint": "/polls/:pollId/edit",
+      "parameter": "media_code",
+      "bypass_method": "Parameter manipulation by changing media_code to another user's media ID",
+      "exposed_data": [
+        "user's media contents"
+      ],
+      "authorization_check": "Missing or broken authorization check on media_code parameter allowing access to media belonging to other users",
+      "impact_scope": "All users (any user's media contents accessible due to sequential media IDs)"
+    },
+    {
+      "endpoint": null,
+      "parameter": "session parameter",
+      "bypass_method": "parameter manipulation by changing the session parameter value in requests",
+      "exposed_data": [
+        "chat messages",
+        "user profile data",
+        "complete account access"
+      ],
+      "authorization_check": "missing or broken authorization check on session parameter allowing access to other users' data",
+      "impact_scope": "specific users whose session parameter values are guessed or known"
+    },
+    {
+      "endpoint": null,
+      "parameter": "image ID",
+      "bypass_method": "parameter manipulation",
+      "exposed_data": [
+        "profile picture information"
+      ],
+      "authorization_check": "missing or insufficient authorization check on profile picture change requests allowing access to other users' profile picture data",
+      "impact_scope": "all users"
+    },
+    {
+      "endpoint": "/[username]/[project_name]/boards/[board_id].json",
+      "parameter": "label_ids",
+      "bypass_method": "Parameter manipulation by changing label_ids to victim's private label ID",
+      "exposed_data": [
+        "private project/group labels"
+      ],
+      "authorization_check": "Missing or broken authorization check on label_ids parameter allowing non-members to add/access private labels",
+      "impact_scope": "Non-members accessing private projects/groups labels (potentially all users)"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": null,
+      "authorization_check": null,
+      "impact_scope": null
+    },
+    {
+      "endpoint": "TikTok translation API endpoint",
+      "parameter": null,
+      "bypass_method": "Unauthorized access via translation API endpoint",
+      "exposed_data": [
+        "video descriptions from private accounts"
+      ],
+      "authorization_check": "Missing or broken authorization check on access to video descriptions in private accounts",
+      "impact_scope": "Private accounts (potentially multiple users with private videos)"
+    },
+    {
+      "endpoint": "training.smartpay.gsa.gov/reports/quizzes-taken-by-user",
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": [
+        "Confidentiality"
+      ],
+      "authorization_check": null,
+      "impact_scope": null
+    },
+    {
+      "endpoint": "Get Leads",
+      "parameter": "sec_user_id",
+      "bypass_method": "Parameter manipulation allowing access to another user's data",
+      "exposed_data": [
+        "email",
+        "phone number"
+      ],
+      "authorization_check": "Missing or broken authorization check on the 'sec_user_id' parameter allowing unauthorized access to user contact information",
+      "impact_scope": "Users whose information is sent via 'Get Leads' in Business Suite on Android devices"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": null,
+      "authorization_check": "Access control to limit sharing information of Tables app to affected users",
+      "impact_scope": "All users (sharing information not limited to affected users)"
+    },
+    {
+      "endpoint": "TikTok Ads API on ads.tiktok.com",
+      "parameter": null,
+      "bypass_method": "Insecure Direct Object Reference allowing addition of arbitrary products without proper authorization",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check to verify user permissions before adding products to a user's catalog",
+      "impact_scope": "Single user's catalog (unauthorized addition of products)"
+    },
+    {
+      "endpoint": "GraphQL deleteProfileImages Mutation",
+      "parameter": "id",
+      "bypass_method": "Parameter manipulation",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check on the 'id' parameter allowing deletion of another user's photo",
+      "impact_scope": "All users (ability to delete other users' photos)"
+    },
+    {
+      "endpoint": "/appointment/lookup.aspx?a=f",
+      "parameter": "TbPin",
+      "bypass_method": "Brute force or dictionary attack on the 'Confirmation Number' (TbPin) parameter without restriction on multiple failed attempts",
+      "exposed_data": [
+        "personal user information",
+        "appointment details"
+      ],
+      "authorization_check": "Restriction against multiple failed attempts to place an ID (confirmation number) was missing, allowing brute force attacks",
+      "impact_scope": "Multiple users (any user with an appointment could be targeted)"
+    },
+    {
+      "endpoint": "/migrate?step=2",
+      "parameter": "username",
+      "bypass_method": "Parameter manipulation by crafting an HTTP request with arbitrary username to trigger response containing target's email",
+      "exposed_data": [
+        "email address (PII)"
+      ],
+      "authorization_check": "Missing authorization check to verify that the requesting user is authorized to view the email address of the specified username",
+      "impact_scope": "All users (any user on the site can retrieve any other user's email address)"
+    },
+    {
+      "endpoint": null,
+      "parameter": "attachment ids",
+      "bypass_method": "Modifying the attachment ids in the XHR request to overwrite or delete attachments belonging to other users",
+      "exposed_data": null,
+      "authorization_check": "Ownership check for attachments when updating or deleting",
+      "impact_scope": "Specific to attachments in the outbox messages, potentially affecting attachments belonging to other users"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": [
+        "poll titles",
+        "authors"
+      ],
+      "authorization_check": "Access rights check missing or broken allowing viewing of hidden slowvote polls",
+      "impact_scope": "any user (unauthorized users can see hidden slowvotes of any user)"
+    },
+    {
+      "endpoint": [
+        "/v0/build/",
+        "/v0/build/<siteid>/log"
+      ],
+      "parameter": "site",
+      "bypass_method": "Parameter manipulation - changing the site ID to one belonging to another user",
+      "exposed_data": null,
+      "authorization_check": "Missing verification that the site ID belongs to the authenticated user before allowing build restart or viewing build logs",
+      "impact_scope": "All authenticated users can affect sites belonging to other users"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "Improper authorization allowed access to any restaurant's analytics on 3 endpoints",
+      "exposed_data": [
+        "analytics of the Loyalty Program"
+      ],
+      "authorization_check": "Missing or broken authorization check allowing access to analytics of any restaurant",
+      "impact_scope": "Hacker with completed ID-verification and background check could access analytics of any restaurant"
+    },
+    {
+      "endpoint": "SERVER_GET_USER_LIST API",
+      "parameter": "folder ID",
+      "bypass_method": "Parameter manipulation (replacing folder ID 0 with 7 and modifying projection fields and count)",
+      "exposed_data": [
+        "unique user ID",
+        "user vote",
+        "is_match status"
+      ],
+      "authorization_check": "Missing or broken authorization to restrict access to user profiles in folder 7 (profiles right-swiped on)",
+      "impact_scope": "Specific user (the attacker) accessing profiles they have right-swiped on"
+    },
+    {
+      "endpoint": "/self",
+      "parameter": [
+        "userName",
+        "originalEmail",
+        "Email",
+        "RecoveryEmail"
+      ],
+      "bypass_method": "Parameter manipulation in POST request to add attacker-controlled recovery email without proper authorization",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check allowing modification of another user's recovery email without verifying ownership or session validity",
+      "impact_scope": "Any member without a confirmed recovery email address"
+    },
+    {
+      "endpoint": "/listings/hackeronevg1110/shop_screenshots/85952",
+      "parameter": "shop_screenshots ID",
+      "bypass_method": "Parameter manipulation by changing the shop_screenshots ID to access other users' photos",
+      "exposed_data": [
+        "Private photos (shop screenshots)",
+        "Shopify domain details"
+      ],
+      "authorization_check": "Missing verification to confirm that the shop accessing the screenshots is the owner of those screenshots",
+      "impact_scope": "All users with shop screenshots on Exchange app (potentially all shops)"
+    },
+    {
+      "endpoint": "/register/create/outlet_id/<outlet id from B>",
+      "parameter": "vend_register[outlet_id]",
+      "bypass_method": "Parameter manipulation by replacing outlet_id with an outlet id from another store",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken permission check to verify if the user has rights to add a register to the specified outlet",
+      "impact_scope": "Users with default Cashier role can add registers to outlets of other stores"
+    },
+    {
+      "endpoint": "/api/applications",
+      "parameter": "application[id]",
+      "bypass_method": "Parameter manipulation by changing the application[id] value to another user's application ID and removing other parameters except application[id] and authenticity_token",
+      "exposed_data": [
+        "Client ID",
+        "Client Secret",
+        "API credentials"
+      ],
+      "authorization_check": "Missing or broken authorization check to verify ownership of the application ID in the request",
+      "impact_scope": "All users' API applications (attacker can access any API application due to sequential IDs and lack of authorization)"
+    },
+    {
+      "endpoint": null,
+      "parameter": "reservation id",
+      "bypass_method": "parameter manipulation by knowing the reservation id without login",
+      "exposed_data": null,
+      "authorization_check": "missing authorization check requiring user login before cancelling a reservation",
+      "impact_scope": "anyone knowing the reservation id (potentially all users with access to reservation URLs)"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "horizontal privilege escalation via read/write access to resources not associated with the current user",
+      "exposed_data": null,
+      "authorization_check": "missing or broken horizontal access control allowing access to other users' resources",
+      "impact_scope": "users who have completed both ID-verification and background check"
+    },
+    {
+      "endpoint": "https://restaurant.uber.com",
+      "parameter": null,
+      "bypass_method": "lack of proper authorization check in GraphQL service",
+      "exposed_data": [
+        "detailed sales statistics",
+        "analytics data of any restaurant"
+      ],
+      "authorization_check": "authorization check (authZ) was missing or improperly performed",
+      "impact_scope": "any restaurant's analytics accessible by attacker"
+    },
+    {
+      "endpoint": "/index.php/tools/required/conversations/view_ajax",
+      "parameter": "cnvID",
+      "bypass_method": "Parameter manipulation via incremental integer enumeration without authentication",
+      "exposed_data": [
+        "comments",
+        "potentially PII or other sensitive user-posted data"
+      ],
+      "authorization_check": "Missing access control check to verify user authorization for the requested object",
+      "impact_scope": "All users (unauthenticated users can access comments from all blog posts)"
+    },
+    {
+      "endpoint": "/sync",
+      "parameter": "steamid (in cookie)",
+      "bypass_method": "Manipulating the steamid parameter in the cookie to act on victim's account builds",
+      "exposed_data": null,
+      "authorization_check": "Missing authorization check to verify that the user has permission to save, edit, or delete builds on the victim's account",
+      "impact_scope": "Specific victim accounts targeted by attacker via steamid manipulation"
+    },
+    {
+      "endpoint": "/wp-comments-post.php",
+      "parameter": "comment_post_ID",
+      "bypass_method": "Parameter manipulation by changing the numeric ID of the message thread",
+      "exposed_data": null,
+      "authorization_check": "Missing verification that the sender of a private message is either the teacher or the original sender of the message thread",
+      "impact_scope": "Any authenticated student user can send messages to arbitrary private conversation threads between other students and teachers"
+    },
+    {
+      "endpoint": "/nin/success",
+      "parameter": "message",
+      "bypass_method": "Parameter manipulation by incrementing the 'message' parameter value to access other users' NIN pages without submitting any NIN or proper authorization",
+      "exposed_data": [
+        "Nigerian National Identity Number (NIN)"
+      ],
+      "authorization_check": "Missing authorization check to verify that the requesting user is allowed to access the NIN data corresponding to the 'message' parameter value",
+      "impact_scope": "All users who have submitted their NIN, as the vulnerability allows access to all submitted NINs"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": [
+        "geolocation data",
+        "sensitive data"
+      ],
+      "authorization_check": "File upload URLs are not private; intended to be shared publicly, so no authorization check on file URLs",
+      "impact_scope": "All users who access the shared image URLs"
+    },
+    {
+      "endpoint": null,
+      "parameter": "mediaId",
+      "bypass_method": "Parameter manipulation by setting mediaId to victim's mediaId in edit list cover photo request",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken access control allowing unauthorized users to edit another user's list cover photo",
+      "impact_scope": "All users (any Twitter user's list cover photo can be deleted)"
+    },
+    {
+      "endpoint": "/groups/new",
+      "parameter": "parent_id",
+      "bypass_method": "Parameter manipulation by incrementing the parent_id parameter",
+      "exposed_data": [
+        "private group names"
+      ],
+      "authorization_check": "Missing or broken authorization check on access to private group names via parent_id parameter",
+      "impact_scope": "Unprivileged users (users with no group or project assignments)"
+    },
+    {
+      "endpoint": "/api/[REDACTED]/",
+      "parameter": "checkout_ari",
+      "bypass_method": "Parameter manipulation by changing the value of 'checkout_ari' in the POST request",
+      "exposed_data": [
+        "user's purchase information",
+        "full address",
+        "payment details",
+        "products purchased"
+      ],
+      "authorization_check": "Missing or broken object-based access control allowing unauthorized users to access order data of other users",
+      "impact_scope": "All users (an attacker can view order information of other users)"
+    },
+    {
+      "endpoint": "/lite/flag-content",
+      "parameter": "contentUrn",
+      "bypass_method": "Manipulating the jobId in the contentUrn parameter to report draft, rejected, or under review jobs without proper authorization",
+      "exposed_data": [
+        "job name",
+        "creator name",
+        "creator profile link",
+        "company name",
+        "job location"
+      ],
+      "authorization_check": "Missing or broken authorization check on reporting jobs that are draft, rejected, or under review, allowing access to unlisted job details",
+      "impact_scope": "Any authenticated user can report and access details of unlisted jobs"
+    },
+    {
+      "endpoint": "/filepush/ftp/<ID>/",
+      "parameter": "ID",
+      "bypass_method": "Parameter manipulation (bruteforce of ID parameter to access other users' FTP details)",
+      "exposed_data": [
+        "FTP server hostname",
+        "FTP username",
+        "FTP password",
+        "FTP path"
+      ],
+      "authorization_check": "Missing or broken authorization check on the ID parameter allowing access to other users' FTP server details",
+      "impact_scope": "All users (any authenticated or unauthenticated attacker can access any user's FTP details by manipulating the ID)"
+    },
+    {
+      "endpoint": "/import",
+      "parameter": "issue_ids",
+      "bypass_method": "Manipulating project import data by crafting project.json to assign foreign key attributes like issue_ids",
+      "exposed_data": [
+        "issues",
+        "merge requests",
+        "boards",
+        "notes",
+        "attachments"
+      ],
+      "authorization_check": "Missing validation to exclude foreign key attributes (e.g., issue_ids, merge_request_ids) during project import, allowing assignment of objects from other projects",
+      "impact_scope": "All users importing projects; attacker can access resources of other users by traversing incremental IDs"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "Chaining multiple IDOR vulnerabilities between Uber business and voucher APIs",
+      "exposed_data": [
+        "voucher policies",
+        "organization employees' PII"
+      ],
+      "authorization_check": "Missing or broken authorization checks allowing unauthorized access and modification of voucher policies and employee data",
+      "impact_scope": "Users who completed ID-verification and background check; potentially all users within victim organizations"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": null,
+      "authorization_check": null,
+      "impact_scope": "other users"
+    },
+    {
+      "endpoint": "TikTok Ads endpoint within the report download functionality",
+      "parameter": null,
+      "bypass_method": "Insecure Direct Object Reference (IDOR) allowing access via direct object reference manipulation",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check on report download endpoint allowing unauthorized access",
+      "impact_scope": "Hacker with ID-verification and background check could access reports"
+    },
+    {
+      "endpoint": "/share.redd.it/preview/user/<username>/achievement/<achievement_id>",
+      "parameter": "achievement_id",
+      "bypass_method": "Parameter manipulation (changing achievement_id to enumerate badges of any user)",
+      "exposed_data": [
+        "Achievement Badges"
+      ],
+      "authorization_check": "Missing authorization check to restrict access to achievement badges of other users",
+      "impact_scope": "All users (any arbitrary Reddit user)"
+    },
+    {
+      "endpoint": "/admin/internal/web/graphql/core",
+      "parameter": "input.senderEmail",
+      "bypass_method": "A staff member with no permissions can invoke the undocumented GraphQL mutation emailSenderConfigurationUpdate to update the store Customer Email without proper authorization checks.",
+      "exposed_data": [
+        "store Customer Email (contact email visible to customers)"
+      ],
+      "authorization_check": "Missing or broken authorization check allowing staff members with no permissions to update store Customer Email via the emailSenderConfigurationUpdate GraphQL mutation.",
+      "impact_scope": "Staff members with no permissions within a store can modify the store Customer Email, affecting all customers contacting the store."
+    },
+    {
+      "endpoint": "/Vendor/Companies/Delete/{id}",
+      "parameter": "id",
+      "bypass_method": "Parameter manipulation (changing the company ID in the delete request)",
+      "exposed_data": null,
+      "authorization_check": "Missing authorization check to verify if the user is allowed to delete the specified company ID",
+      "impact_scope": "All companies (an attacker can delete all companies)"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "parameter manipulation",
+      "exposed_data": [
+        "support tickets"
+      ],
+      "authorization_check": "missing or broken access control allowing viewing of other users' support tickets",
+      "impact_scope": "all users on seller platform"
+    },
+    {
+      "endpoint": "/updateProfile",
+      "parameter": "username",
+      "bypass_method": "Parameter manipulation by changing the user ID in the request URL to another user's ID",
+      "exposed_data": [
+        "account access",
+        "email addresses",
+        "password reset capability"
+      ],
+      "authorization_check": "Missing or broken authorization check on user ID parameter allowing access to other users' profiles",
+      "impact_scope": "All users on the specific domain (mtnmobad.mtnbusiness.com.ng)"
+    },
+    {
+      "endpoint": null,
+      "parameter": "reminderId",
+      "bypass_method": "parameter manipulation",
+      "exposed_data": null,
+      "authorization_check": "missing or broken authorization check on reminderId parameter allowing modification of other users' reminders",
+      "impact_scope": "all users"
+    },
+    {
+      "endpoint": [
+        "GET https://api.bykea.net/api/v1/bookings/{{booking_id}}?_id={{user_id2}}&token_id={{access_token2}}",
+        "GET https://api.bykea.net/api/v2/bids/{{booking_id}}?_id={{user_id2}}&token_id={{access_token2}}",
+        "GET https://boleelagao.bykea.net/v1/config?lat={{latitute}}&lng={{longitude}}&service_code=23&trip_id={{booking_id}}"
+      ],
+      "parameter": "booking_id",
+      "bypass_method": "Parameter manipulation of booking_id to access other users' booking and bids details",
+      "exposed_data": [
+        "booking details",
+        "bids information",
+        "bids config"
+      ],
+      "authorization_check": "Missing or broken authorization check on booking_id parameter allowing access to other users' data",
+      "impact_scope": "All users (any authenticated user can access other users' booking and bids data)"
+    },
+    {
+      "endpoint": "/api/v4/groups/attackerepicgroup/epics",
+      "parameter": "parent_id",
+      "bypass_method": "Parameter manipulation in the POST request body to set parent_id to victim's epic ID",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken check to verify that the parent_id epic belongs to the attacker's group or that the attacker has permission to link child epics to the specified parent epic",
+      "impact_scope": "Attackers with Ultimate license who can create multi-level epics; affects epics across unrelated groups including public, internal, and possibly private groups"
+    },
+    {
+      "endpoint": "/Управление группой/Работа с API",
+      "parameter": "SSL-сертификат",
+      "bypass_method": "Недостаточная проверка при загрузке SSL-сертификата для Callback API неавторизированным пользователем",
+      "exposed_data": null,
+      "authorization_check": "Отсутствие или недостаточная проверка авторизации при загрузке SSL-сертификата",
+      "impact_scope": "Любая группа (возможность подмены SSL-сертификата для любой группы)"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": [
+        "private videos"
+      ],
+      "authorization_check": "missing or broken authorization allowing unauthorized viewing of private account videos",
+      "impact_scope": "unauthorized viewing of videos from private accounts"
+    },
+    {
+      "endpoint": "/profiles/[user-id]",
+      "parameter": null,
+      "bypass_method": "Accessing user uploaded portfolio files even after deletion via profile link without proper authorization",
+      "exposed_data": [
+        "user uploaded portfolio files"
+      ],
+      "authorization_check": "Missing or broken check on access to deleted portfolio files within team/group restrictions",
+      "impact_scope": "Users within the same team/group or potentially any user accessing deleted files"
+    },
+    {
+      "endpoint": null,
+      "parameter": "PHPSESSID cookie",
+      "bypass_method": "Copying PHPSESSID cookie value from an alternate site sharing the same database and cookie credentials to card.starbucks.com.sg",
+      "exposed_data": [
+        "user information",
+        "password"
+      ],
+      "authorization_check": "Missing or broken session validation allowing session cookie reuse across sites",
+      "impact_scope": "All users whose sessions could be hijacked via the shared cookie"
+    },
+    {
+      "endpoint": "UpdateAtlasApplicationPerson (GraphQL operation)",
+      "parameter": null,
+      "bypass_method": "Cross-tenant IDOR allowing write access by manipulating the target Atlas application to add a co-founder",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check allowing addition of co-founders to Atlas applications by unauthorized users",
+      "impact_scope": "Users with prior Admin access to a Stripe account could add co-founders to Atlas applications belonging to other merchant accounts they administered"
+    },
+    {
+      "endpoint": null,
+      "parameter": "video id",
+      "bypass_method": "parameter manipulation (replacing the video id parameter with another user's video id)",
+      "exposed_data": null,
+      "authorization_check": "missing or broken authorization check on delete request allowing deletion of other users' content",
+      "impact_scope": "all users (ability to delete anyone's Content Spotlight, including videos of biggest influencers and content creators)"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": null,
+      "authorization_check": null,
+      "impact_scope": "reporter, external users, collaborators"
+    },
+    {
+      "endpoint": "/projects/:id/members",
+      "parameter": "user_id",
+      "bypass_method": "Parameter manipulation via automated requests to invite multiple users without rate limiting",
+      "exposed_data": [
+        "user email addresses"
+      ],
+      "authorization_check": "Missing rate limiting on inviting users to a repository",
+      "impact_scope": "All users on GitLab"
+    },
+    {
+      "endpoint": "/[REDACTED]",
+      "parameter": "url",
+      "bypass_method": "parameter manipulation",
+      "exposed_data": [
+        "PII"
+      ],
+      "authorization_check": "missing or broken authorization check on resource ID parameter allowing access to other users' data",
+      "impact_scope": "approximately 50000 applications accessible, potentially all users whose data is stored in the system"
+    },
+    {
+      "endpoint": "/api/v1/note/{uuid}",
+      "parameter": "uuid",
+      "bypass_method": "Parameter manipulation by changing the uuid of notes in the API request",
+      "exposed_data": [
+        "user notes content",
+        "user identifiers (uuid, displayName, firstName, lastName)"
+      ],
+      "authorization_check": "Missing or broken authorization check allowing USER role to modify notes of any user",
+      "impact_scope": "All users within the same team (members with USER role can edit notes of any users)"
+    },
+    {
+      "endpoint": "https://www.glassdoor.com/member/profileApi/preferences/delete.htm",
+      "parameter": null,
+      "bypass_method": "IDOR via parameter manipulation",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check allowing an attacker to change another user's job preferences",
+      "impact_scope": "Single user (victim whose job preferences were changed)"
+    },
+    {
+      "endpoint": "/dashboard",
+      "parameter": "actionable[]",
+      "bypass_method": "Parameter manipulation by changing actionable[] parameter value to victim's content ID",
+      "exposed_data": [
+        "content data (surveys, polls)",
+        "content status",
+        "ability to move content between users"
+      ],
+      "authorization_check": "Missing or broken authorization check on content ownership when moving content; lack of verification that the user owns or has permission to move the specified content ID",
+      "impact_scope": "All users within a team account; attacker can brute force sequential content IDs to takeover multiple contents"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "parameter manipulation",
+      "exposed_data": [
+        "settings information related to low stock variants"
+      ],
+      "authorization_check": "missing or broken authorization allowing access to settings of another store",
+      "impact_scope": "multiple stores (settings belonging to another store)"
+    },
+    {
+      "endpoint": "/businessmanage/users/api/v1/users",
+      "parameter": null,
+      "bypass_method": "Improper authorization allowing a Business Account owner to assign secondary users from other accounts",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check to verify that secondary users being assigned belong to the same Business Account",
+      "impact_scope": "Secondary users from other accounts could be assigned, allowing unauthorized access to those user logins"
+    },
+    {
+      "endpoint": [
+        "/acknowledged_the_offer",
+        "/accept"
+      ],
+      "parameter": "trip_id",
+      "bypass_method": "Parameter manipulation by substituting a victim's trip_id into the requests",
+      "exposed_data": [
+        "PII"
+      ],
+      "authorization_check": "Proper validation of user ownership of the trip_id",
+      "impact_scope": "Specific roles (passengers and drivers involved in the trip)"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check allowing sensitive info to be pulled via the API even with elevated permissions",
+      "impact_scope": "Account takeover"
+    },
+    {
+      "endpoint": "RSS endpoint for deleted Interview records (deprecated)",
+      "parameter": null,
+      "bypass_method": "Accessing deleted interview records via deprecated RSS endpoint without proper authorization",
+      "exposed_data": [
+        "Interview records"
+      ],
+      "authorization_check": "Missing authorization check on deleted employer profiles' interview records via RSS endpoint",
+      "impact_scope": "Users accessing deleted employer profiles' interview records via RSS feed"
+    },
+    {
+      "endpoint": "graphql `AddRulesToPixelEvents` query",
+      "parameter": null,
+      "bypass_method": "IDOR via insufficient authorization on GraphQL requests allowing manipulation of Pixel event rules belonging to other advertisers",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check to verify ownership of Pixel events before allowing add, update, or delete operations",
+      "impact_scope": "All users (any advertiser could modify Pixel events of any other advertiser)"
+    },
+    {
+      "endpoint": "GraphQL mutation DestroyLlmConversation",
+      "parameter": "llmConversationId",
+      "bypass_method": "Parameter manipulation by using a predictable llmConversationId from another user's conversation",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check allowing one user to destroy another user's LLM conversation by specifying their llmConversationId",
+      "impact_scope": "All users with access to the HackerOne Copilot feature (unreleased)"
+    },
+    {
+      "endpoint": "[REDACTED]",
+      "parameter": "UID",
+      "bypass_method": "Parameter manipulation by entering sequential and numerical user IDs without authentication or authorization",
+      "exposed_data": [
+        "full names",
+        "emails",
+        "military branches",
+        "[REDACTED] scores",
+        "first & last names"
+      ],
+      "authorization_check": "No validation that the caller has permission to view information on the UID entered",
+      "impact_scope": "All users registered in the [REDACTED] ([REDACTED]) system"
+    },
+    {
+      "endpoint": "https://tamsapi.gsa.gov/user/tams/api/usermgmnt/pendingUserDetails/(REGISTRATION_ID)",
+      "parameter": "REGISTRATION_ID",
+      "bypass_method": "Unauthenticated access by manipulating the numeric REGISTRATION_ID parameter in the URL",
+      "exposed_data": [
+        "email",
+        "address",
+        "phone",
+        "attachment IDs",
+        "corporate info",
+        "user roles",
+        "request status",
+        "denial reason"
+      ],
+      "authorization_check": "Missing authentication and authorization checks on the pendingUserDetails endpoint allowing unauthenticated access to any registration ID",
+      "impact_scope": "All users with registration requests (contractors and employees) whose registration details are accessible by iterating over registration IDs"
+    },
+    {
+      "endpoint": "POST requests to the appropriate endpoints for altering Crew settings on the Rockstar Social Club website",
+      "parameter": "Crew Motto and Open Invite status parameters in the POST request",
+      "bypass_method": "Users had maximum rank permissions by default in certain Official Crews, allowing direct POST requests to modify settings despite the UI not permitting changes",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check allowing users with max-rank permissions (incorrectly assigned) to modify Crew settings via direct POST requests",
+      "impact_scope": "Users in the eCola Official and Sprunk Official Crews who were mistakenly assigned Commissioner-level (maximum) rank"
+    },
+    {
+      "endpoint": "Get a check run API endpoint",
+      "parameter": null,
+      "bypass_method": "Improper access control allowing unauthorized users to view private repository names",
+      "exposed_data": [
+        "private repository names"
+      ],
+      "authorization_check": "Missing or broken access control to restrict viewing of private repository names",
+      "impact_scope": "Unauthorized users (including those who completed ID-verification and background check) could view private repository names"
+    },
+    {
+      "endpoint": "https://gql.reddit.com",
+      "parameter": "offerId",
+      "bypass_method": "Replaying the accept promotion request after being demoted allows re-promotion without additional authorization",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken check to verify if the promotion offer is still valid or if the user is currently authorized to accept it after demotion",
+      "impact_scope": "Specific roles (users promoted to speaker/host in a Reddit talk)"
+    },
+    {
+      "endpoint": "hardcoded legacy (zombie) endpoint (exact path not provided)",
+      "parameter": null,
+      "bypass_method": "Accessing an exposed API endpoint without validating trip ownership",
+      "exposed_data": [
+        "sensitive details related to drivers involved in other users’ trips"
+      ],
+      "authorization_check": "Validation of trip ownership was missing",
+      "impact_scope": "Hacker who completed ID-verification and background check could access data of other users' trips"
+    },
+    {
+      "endpoint": "URL for card balance transfer or card balance viewing on www.starbuckscardth.in.th",
+      "parameter": "2nd card number URL parameter",
+      "bypass_method": "Parameter manipulation by changing the 2nd card number in the URL to another known Starbucks card number",
+      "exposed_data": [
+        "financial data (Starbucks card balance)"
+      ],
+      "authorization_check": "Missing or broken authorization check to verify ownership of the Starbucks card number before displaying balance",
+      "impact_scope": "Any logged in user who knows another Starbucks card number can view that card's balance"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "parameter manipulation to change privacy permissions",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken check preventing Minor accounts from setting privacy permissions to 'Everyone'",
+      "impact_scope": "Minor accounts (users aged 13-17)"
+    },
+    {
+      "endpoint": "/voyager/api/voyagerMarketplacesDashServiceMarketplaceEngagement?action=createEngagementV2&decorationId=com.linkedin.voyager.dash.deco.marketplaces.CreateEngagementResponse-4",
+      "parameter": "projectUrn",
+      "bypass_method": "Parameter manipulation by iterating integer ProjectIDs to access projects of other users without authorization",
+      "exposed_data": [
+        "project details",
+        "confidential project data"
+      ],
+      "authorization_check": "Missing or broken authorization check to verify ownership or access rights to the project referenced by projectUrn",
+      "impact_scope": "All users with projects on the platform; attacker can access projects of arbitrary users"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check allowing deletion of featured photos belonging to any user",
+      "impact_scope": "all users"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "parameter manipulation",
+      "exposed_data": [
+        "limited marketing data"
+      ],
+      "authorization_check": "missing or broken authorization check on direct object reference",
+      "impact_scope": "customers in Singapore"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": [
+        "Private api_key"
+      ],
+      "authorization_check": "Missing or broken authorization allowing IDOR to view, delete, and create private api_key",
+      "impact_scope": "Potentially all api_keys accessible via the vulnerable endpoint"
+    },
+    {
+      "endpoint": "/mumbai/order-food-online",
+      "parameter": "selectedAddressId (cookie), delivery_subzone (query parameter)",
+      "bypass_method": "Manipulating the selectedAddressId cookie value and guessing delivery_subzone without authentication",
+      "exposed_data": [
+        "full address (PII)"
+      ],
+      "authorization_check": "Missing authorization check on selectedAddressId cookie and delivery_subzone parameter allowing unauthenticated access to address data",
+      "impact_scope": "Any user address data accessible by guessing AddressId and delivery_subzone, unauthenticated attacker can access multiple users' addresses"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "parameter manipulation via IDOR to order unlisted items",
+      "exposed_data": null,
+      "authorization_check": "missing or broken access control allowing ordering of items not present in the web catalog",
+      "impact_scope": "potentially all users able to order unlisted items via API"
+    },
+    {
+      "endpoint": "/[REDACTED]/Vendor/Company/Contacts/SavePOC",
+      "parameter": "VendorId",
+      "bypass_method": "Parameter manipulation by changing VendorId to victim's VendorId",
+      "exposed_data": [
+        "PII"
+      ],
+      "authorization_check": "Missing or broken authorization check on VendorId parameter allowing access to other users' data",
+      "impact_scope": "Specific users (victims whose VendorId is guessed or intercepted)"
+    },
+    {
+      "endpoint": "/Liberapay/charts.json",
+      "parameter": null,
+      "bypass_method": "No proper authorization check on the income history API endpoint, allowing access to other users' income data",
+      "exposed_data": [
+        "financial data (income history, amounts, currency, number of patrons)"
+      ],
+      "authorization_check": "Missing or broken authorization check to verify that the requesting user is allowed to view the income history of the specified user",
+      "impact_scope": "all users (any authenticated user can view income history of other users)"
+    },
+    {
+      "endpoint": "/cashier/transaction-history",
+      "parameter": null,
+      "bypass_method": "IDOR (Insecure Direct Object Reference) allowing access to another customer's data",
+      "exposed_data": [
+        "email",
+        "phone number",
+        "user identification data"
+      ],
+      "authorization_check": "Missing or broken authorization check allowing access to other users' transaction history",
+      "impact_scope": "Multiple users (ability to enumerate users and access their data)"
+    },
+    {
+      "endpoint": "program's endpoint (exact URL path not provided)",
+      "parameter": "SOURCE_DOCUMENT_ID",
+      "bypass_method": "Parameter manipulation by using a valid SOURCE_ID corresponding to a specific publication to access cover pages without proper authorization",
+      "exposed_data": [
+        "offline publication cover pages",
+        "potentially sensitive/confidential content"
+      ],
+      "authorization_check": "Missing or broken authorization check on access to offline publication cover pages via SOURCE_DOCUMENT_ID parameter",
+      "impact_scope": "All users (unauthorized users can access cover pages of unpublished publications)"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "parameter manipulation or improper handling in Multiple Admin feature",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check allowing a malicious admin to disable the Owner(Admin) account access",
+      "impact_scope": "specific roles (Owner/Admin accounts)"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": null,
+      "authorization_check": null,
+      "impact_scope": null
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "parameter manipulation",
+      "exposed_data": null,
+      "authorization_check": "missing or broken authorization check in user followback action",
+      "impact_scope": "all users (ability to follow any user)"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "parameter manipulation",
+      "exposed_data": [
+        "email",
+        "mobile number",
+        "uuid"
+      ],
+      "authorization_check": "missing or broken authorization check to verify ownership of the booking before allowing cancellation",
+      "impact_scope": "all users (ability to cancel other users' bookings and access their private information)"
+    },
+    {
+      "endpoint": "https://<host>/?<link_id>_kis_cup_<GUID>_ and http://touch.kaspersky.com/kis_cup_<GUID>_<link_id>",
+      "parameter": "link_id",
+      "bypass_method": "Predictable and incrementing link_id values allow attackers to guess valid override links and trigger actions without user knowledge",
+      "exposed_data": null,
+      "authorization_check": "Lack of unpredictable or user-specific tokens in override links; no validation to ensure the link is used only by the intended user/session",
+      "impact_scope": "Single user (the user of the affected machine/browser)"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": null,
+      "authorization_check": null,
+      "impact_scope": null
+    },
+    {
+      "endpoint": "/graphql",
+      "parameter": "campaign_id",
+      "bypass_method": "Parameter manipulation by decoding the base64 campaign_id, changing the numeric ID to another campaign's ID, re-encoding it, and sending the request to delete campaigns of any program",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check allowing deletion of campaigns without verifying ownership or proper permissions",
+      "impact_scope": "All campaigns across HackerOne or any program accessible by a user who has completed ID-verification and background check"
+    },
+    {
+      "endpoint": "/:namespace/:project/notes",
+      "parameter": "noteable_type",
+      "bypass_method": "Parameter manipulation by changing noteable_type from 'issue' to 'personal_snippet' to bypass project ownership check",
+      "exposed_data": [
+        "title of victim's private personal snippet"
+      ],
+      "authorization_check": "Missing project ownership check when noteable_type is 'personal_snippet', allowing creation/editing/deletion of notes on victim's private snippet",
+      "impact_scope": "Specific users (attacker and victim), attacker can affect victim's private personal snippets"
+    },
+    {
+      "endpoint": "https://app.mavenlink.com/projects/{project_id}/comments (implied via email reply integration)",
+      "parameter": null,
+      "bypass_method": "By replying to project notification emails, expired account holders can post comments without accessing the application or selecting a paid plan",
+      "exposed_data": null,
+      "authorization_check": "No verification to block expired account holders from participating in project conversations via email replies despite UI restrictions",
+      "impact_scope": "Expired account holders invited to projects"
+    },
+    {
+      "endpoint": "/hacker_reviews",
+      "parameter": "hacker_username",
+      "bypass_method": "Parameter manipulation by changing the hacker_username value to another user's username",
+      "exposed_data": [
+        "public feedback visible on victim's profile",
+        "email notifications sent to victim about reviews not intended for them",
+        "private feedback content",
+        "report title"
+      ],
+      "authorization_check": "Missing or broken authorization check to verify that the user submitting feedback is authorized to do so only for the specified hacker_username",
+      "impact_scope": "All users (all hackers on the platform can be affected by unauthorized public feedback and information disclosure)"
+    },
+    {
+      "endpoint": null,
+      "parameter": "customer's routing number (RUT)",
+      "bypass_method": "manipulating the customer's routing number (RUT) in the request parameter",
+      "exposed_data": null,
+      "authorization_check": "missing or broken authorization check on the customer's routing number (RUT) to verify ownership before allowing branch addition",
+      "impact_scope": "all users (unauthorized users can add branches to any account)"
+    },
+    {
+      "endpoint": "[REDACTED]",
+      "parameter": "id",
+      "bypass_method": "Parameter manipulation (incrementing/decrementing the id in the URL to access other users' forms)",
+      "exposed_data": [
+        "PII such as SSN",
+        "Date of Birth",
+        "Addresses",
+        "Personal remarks",
+        "Security clearance information",
+        "Education details",
+        "Marital status"
+      ],
+      "authorization_check": "Missing or broken authorization check to verify ownership of the requested e-form",
+      "impact_scope": "All authenticated users can access all other users' forms"
+    },
+    {
+      "endpoint": "/JOINOnline/Board/BoardIntro/1021/1327/False",
+      "parameter": "User numeric-id (in URL)",
+      "bypass_method": "Parameter manipulation (changing User-A numeric-id to User-B numeric-id in URL)",
+      "exposed_data": [
+        "PII"
+      ],
+      "authorization_check": "Missing or broken authorization check to verify that the user can only access their own contact details",
+      "impact_scope": "Specific users (accessing other individual users' data)"
+    },
+    {
+      "endpoint": "/change-email-address",
+      "parameter": "email",
+      "bypass_method": "Changing the attacker's email parameter to victim's email without proper authorization checks",
+      "exposed_data": [
+        "email addresses (PII)"
+      ],
+      "authorization_check": "Missing or broken authorization check on the 'Change Your Email Address' functionality allowing email change to another user's email",
+      "impact_scope": "Specific users (victim account targeted by attacker)"
+    },
+    {
+      "endpoint": "/api/v1/users/current/confirm_email",
+      "parameter": "email",
+      "bypass_method": "Parameter manipulation in the confirm_email request body to a different email, allowing verification link reuse to take over accounts",
+      "exposed_data": null,
+      "authorization_check": "Lack of verification that the email confirmation request matches the originating account; missing check to ensure email being confirmed belongs to the authenticated user",
+      "impact_scope": "Single user account takeover by authorizing outside emails from within the original account, potentially leading to 3rd party account conflicts and takeovers"
+    },
+    {
+      "endpoint": null,
+      "parameter": "userId",
+      "bypass_method": "parameter manipulation (bruteforce or guessing userId parameter)",
+      "exposed_data": [
+        "courseId",
+        "creationDate",
+        "engagement",
+        "status",
+        "userEngagement"
+      ],
+      "authorization_check": "Missing or broken authorization check on userId parameter allowing access to other users' course registration data",
+      "impact_scope": "all semrush academy users"
+    },
+    {
+      "endpoint": "/p3/drivers/uploadDocument",
+      "parameter": null,
+      "bypass_method": "IDOR via parameter manipulation allowing upload/overwrite of documents for other drivers and administrators",
+      "exposed_data": [
+        "driver documents"
+      ],
+      "authorization_check": "Missing or broken access control allowing drivers to upload/overwrite documents for other drivers and multi-driver account administrators",
+      "impact_scope": "multi-driver account including other drivers and account administrators"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "parameter manipulation (tagging any user on videos that don't belong to the attacker)",
+      "exposed_data": null,
+      "authorization_check": "missing or broken authorization check to verify ownership of the video before allowing tagging",
+      "impact_scope": "all users (any user could tag any other user on videos they do not own)"
+    },
+    {
+      "endpoint": "/gold/payment-success",
+      "parameter": "subscription_id",
+      "bypass_method": "Parameter manipulation by changing or removing subscription_id to access other users' subscription details",
+      "exposed_data": [
+        "Membership ID",
+        "Subscription Start Date",
+        "Subscription End Date",
+        "Subscription Plan Duration"
+      ],
+      "authorization_check": "Missing or broken authorization check on subscription_id parameter allowing access to subscription details without verifying ownership",
+      "impact_scope": "All users with Gold subscriptions (anyone can view validity details of any membership ID)"
+    },
+    {
+      "endpoint": "/wiki/users/viewmydrafts.action",
+      "parameter": "discardDraftId",
+      "bypass_method": "parameter manipulation",
+      "exposed_data": null,
+      "authorization_check": "missing or broken authorization check allowing deletion of other users' drafts",
+      "impact_scope": "all users"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": [
+        "user social links"
+      ],
+      "authorization_check": "Missing or broken authorization check allowing modification of any user's social links",
+      "impact_scope": "all users"
+    },
+    {
+      "endpoint": "/egift/payment.php",
+      "parameter": [
+        "txtAmount",
+        "amount",
+        "txtCustomAmount",
+        "vpc_Amount"
+      ],
+      "bypass_method": "Parameter manipulation via tampering with amount values and encoded payment amount in the request",
+      "exposed_data": [
+        "financial"
+      ],
+      "authorization_check": "Missing validation to ensure the payment amount matches the gift card value before processing payment",
+      "impact_scope": "Single user (attacker) but allows creation of gift cards with arbitrary value for themselves"
+    },
+    {
+      "endpoint": null,
+      "parameter": "file ID",
+      "bypass_method": "parameter manipulation",
+      "exposed_data": [
+        "private files"
+      ],
+      "authorization_check": "missing or broken authorization check on file access by file ID",
+      "impact_scope": "all users with knowledge of specific file IDs"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": [
+        "confidential information"
+      ],
+      "authorization_check": "Missing reassignment of Custom Field Values when moving reports between programs, leading to potential information leakage",
+      "impact_scope": "Reports moved between different programs; potentially affects data accessible via those reports"
+    },
+    {
+      "endpoint": "/v3/personal_area/stats/equity",
+      "parameter": "accounts",
+      "bypass_method": "Parameter manipulation to query other MT account numbers",
+      "exposed_data": [
+        "account net profit",
+        "closed order counts",
+        "trading volumes",
+        "daily equity figures"
+      ],
+      "authorization_check": "Missing or broken authorization check allowing access to stats of any MT trading account regardless of ownership",
+      "impact_scope": "All users (any MT trading account stats accessible)"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "parameter manipulation",
+      "exposed_data": [
+        "pet information"
+      ],
+      "authorization_check": "missing or broken authorization check allowing any user to modify pet information belonging to others",
+      "impact_scope": "all users"
+    },
+    {
+      "endpoint": "/orders/new",
+      "parameter": "cur",
+      "bypass_method": "parameter manipulation (changing currency parameter from euro to usd)",
+      "exposed_data": [
+        "financial"
+      ],
+      "authorization_check": "missing validation to ensure currency parameter matches the actual payment amount or conversion rates",
+      "impact_scope": "any user"
+    },
+    {
+      "endpoint": null,
+      "parameter": "idUsuario",
+      "bypass_method": "parameter manipulation",
+      "exposed_data": null,
+      "authorization_check": "lack of proper access controls to prevent modifying idUsuario parameter to associate pet with another account",
+      "impact_scope": "all users (ability to add pet to another user's account)"
+    },
+    {
+      "endpoint": [
+        "https://data.roblox.com/Data/Upload.ashx",
+        "https://www.roblox.com/API/Comments.ashx",
+        "https://www.roblox.com/Trade/tradehandler.ashx",
+        "Any other page or API ending in .ashx/.aspx",
+        "api.roblox.com"
+      ],
+      "parameter": null,
+      "bypass_method": "Appending '/membership/' after .aspx or .ashx extensions in URLs to bypass ban redirect due to insecure redirect rule and unanchored whitelist pattern",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken ban redirect enforcement on URLs ending with .aspx/.ashx when appended with '/membership/'; also missing check for banned authenticated sessions on api.roblox.com",
+      "impact_scope": "Banned user accounts can bypass ban restrictions and access restricted pages/APIs; effectively ban enforcement is bypassed for those users"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": null,
+      "authorization_check": null,
+      "impact_scope": null
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "parameter manipulation",
+      "exposed_data": [
+        "financial"
+      ],
+      "authorization_check": "missing or broken authorization check on price modification",
+      "impact_scope": "single user"
+    },
+    {
+      "endpoint": "/daumw2017/ThankYou.aspx",
+      "parameter": [
+        "PID",
+        "RNo"
+      ],
+      "bypass_method": "Parameter manipulation and brute forcing of PID and RNo to access other users' tickets",
+      "exposed_data": [
+        "emails",
+        "first names",
+        "last names",
+        "other confidential information"
+      ],
+      "authorization_check": "Missing or broken authorization check to verify that the requester is authorized to access the ticket identified by PID and RNo",
+      "impact_scope": "All users' tickets on the site"
+    },
+    {
+      "endpoint": "/Download.aspx",
+      "parameter": "id",
+      "bypass_method": "parameter manipulation without authentication",
+      "exposed_data": [
+        "PII (full address, mobile number, emails)",
+        "financial documents (bank taxes, contracts)",
+        "classified documents"
+      ],
+      "authorization_check": "Missing authorization check to verify user authentication and access rights before allowing document download",
+      "impact_scope": "All users and soldiers whose documents are accessible via the id parameter"
+    },
+    {
+      "endpoint": "https://card.starbucks.in/StarbucksMSRModule/starbucksGetCardData.do",
+      "parameter": "cardId",
+      "bypass_method": "parameter manipulation allowing iteration over cardId values",
+      "exposed_data": [
+        "card index number",
+        "monetary balance"
+      ],
+      "authorization_check": "missing or broken authorization check to verify if the authenticated user is authorized to access the specified cardId",
+      "impact_scope": "authenticated but unauthorized users could access multiple cards"
+    },
+    {
+      "endpoint": "Family Pairing endpoint",
+      "parameter": "user_id",
+      "bypass_method": "Parameter manipulation via the 'user_id' POST field",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check allowing modification of screen time management settings for arbitrary accounts",
+      "impact_scope": "Arbitrary accounts within the family pairing context; family members could remove their own account restrictions"
+    },
+    {
+      "endpoint": null,
+      "parameter": "username",
+      "bypass_method": "reuse of the same username after previous user deletion allowed access to previous user's data without proper authorization",
+      "exposed_data": [
+        "confidential data",
+        "private data"
+      ],
+      "authorization_check": "Missing or broken check to ensure that data from a deleted user is not accessible to a new user with the same username",
+      "impact_scope": "all users who reuse a previously deleted username"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": null,
+      "authorization_check": null,
+      "impact_scope": "all users"
+    },
+    {
+      "endpoint": "/_post/mascota_desactivar.php",
+      "parameter": "id_mascota",
+      "bypass_method": "Parameter manipulation by changing the animal ID to another user's animal ID",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check to verify that the authenticated user owns the animal resource before allowing deletion",
+      "impact_scope": "All users (any authenticated user can delete animals belonging to other users)"
+    },
+    {
+      "endpoint": "summary report editing endpoint (exact URL not provided)",
+      "parameter": "attachment ID",
+      "bypass_method": "parameter manipulation by changing the attachment ID in the request to another user's attachment ID",
+      "exposed_data": [
+        "sensitive files",
+        "sensitive attack details",
+        "exploitation information"
+      ],
+      "authorization_check": "missing or improper validation of attachment access across user accounts when editing summary reports",
+      "impact_scope": "all users (unauthorized access to attachments belonging to other users)"
+    },
+    {
+      "endpoint": "/comment/ForumTopic/delete/***GroupID***/***forumID***/",
+      "parameter": "extended_data",
+      "bypass_method": "Using valid session credentials but manipulating the request to access comments of unauthorized forums and deleted comments by providing forum and discussion IDs directly in the URL and parameters",
+      "exposed_data": [
+        "deleted comments",
+        "comments from unauthorized forums' discussions"
+      ],
+      "authorization_check": "Missing or broken authorization check on whether the user has permission to view deleted comments or discussions in the specified forum",
+      "impact_scope": "all users with member or non-member roles (including unauthorized users)"
+    },
+    {
+      "endpoint": "/wipe",
+      "parameter": "id",
+      "bypass_method": "Using device ID parameter to wipe another user's device without ownership verification",
+      "exposed_data": null,
+      "authorization_check": "Missing ownership check to verify that the device ID belongs to the requesting user",
+      "impact_scope": "Any user device identified by device ID, potentially affecting multiple users"
+    },
+    {
+      "endpoint": null,
+      "parameter": "message ID",
+      "bypass_method": "Using message ID to delete messages after leaving or getting banned from group",
+      "exposed_data": null,
+      "authorization_check": "Missing restriction preventing users who left or were banned/muted from deleting messages",
+      "impact_scope": "Affected users who left or were banned/muted from the channel"
+    },
+    {
+      "endpoint": "/api/shopify/[REDACTED]?operation=BillDetails&type=query",
+      "parameter": "id",
+      "bypass_method": "Manipulation of numerical, predictable (incremental) BillingInvoice ID in GraphQL queries",
+      "exposed_data": [
+        "email",
+        "full address",
+        "content of invoice",
+        "last 4 digits of credit card",
+        "type of credit card",
+        "PayPal email",
+        "shop information"
+      ],
+      "authorization_check": "Missing or broken authorization check on BillingInvoice ID in BillingDocumentDownload and BillDetails GraphQL operations allowing access to other shops' billing data",
+      "impact_scope": "Staff users able to access billing details of other shops; affects multiple shops"
+    },
+    {
+      "endpoint": null,
+      "parameter": "CardNumber",
+      "bypass_method": "parameter manipulation via form field modification using browser dev tools",
+      "exposed_data": [
+        "financial"
+      ],
+      "authorization_check": "missing or broken authorization check on the CardNumber parameter allowing transfer of funds from any valid Starbucks card without proper ownership verification",
+      "impact_scope": "single user (victim whose card number is used), but potentially any user with a valid card number"
+    },
+    {
+      "endpoint": null,
+      "parameter": "photo ID",
+      "bypass_method": "Parameter manipulation by adding photo IDs of non-public photos to a group upload batch",
+      "exposed_data": [
+        "non-public photos"
+      ],
+      "authorization_check": "Missing or broken authorization check allowing access to non-public photos by knowing their IDs and adding photos to groups without owner approval",
+      "impact_scope": "Any user who is a member of the Flickr group"
+    },
+    {
+      "endpoint": "fs.fchown / fs.fchmod",
+      "parameter": null,
+      "bypass_method": "Using a read-only file descriptor to perform privileged operations",
+      "exposed_data": null,
+      "authorization_check": "Node.js permission model does not operate on file descriptors for these operations",
+      "impact_scope": "Not explicitly stated, likely any file accessible via a read-only descriptor"
+    },
+    {
+      "endpoint": "/offers/",
+      "parameter": "card title and card body (modified via browser inspect tool)",
+      "bypass_method": "Client-side modification of offer text fields via browser inspect without server-side validation",
+      "exposed_data": null,
+      "authorization_check": "Lack of server-side validation of modified offer text before sending SMS; no authentication required to send SMS to any number",
+      "impact_scope": "All MTN users (any number can be targeted without authentication)"
+    },
+    {
+      "endpoint": "/apps/deck/cards/{cardId}/attachment/file:{fileId}",
+      "parameter": "file",
+      "bypass_method": "Parameter manipulation by changing the file ID to files attached to other users' cards",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check to verify that the file being deleted belongs to the requesting user or their accessible cards",
+      "impact_scope": "All users (ability to delete files attached to any user's deck cards)"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "insecure direct object reference (IDOR) allowing changing the email associated with a user account",
+      "exposed_data": [
+        "email address",
+        "account access"
+      ],
+      "authorization_check": "missing or broken authentication confirmation on account actions (email change flow)",
+      "impact_scope": "single user account takeover in certain situations"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "parameter manipulation leading to verbose error message",
+      "exposed_data": [
+        "workspace title"
+      ],
+      "authorization_check": "insufficient authorization check causing verbose error message revealing sensitive information",
+      "impact_scope": "users attempting to access unauthorized workspaces"
+    },
+    {
+      "endpoint": "/cms/reader/account",
+      "parameter": "id",
+      "bypass_method": "Parameter manipulation (changing the 'id' parameter in the request to another user's ID)",
+      "exposed_data": [
+        "email address"
+      ],
+      "authorization_check": "Missing authorization check to verify that the user can only change their own email address (IDOR vulnerability)",
+      "impact_scope": "All users (due to sequential user IDs, attacker can change email addresses of any user)"
+    },
+    {
+      "endpoint": null,
+      "parameter": "file ID",
+      "bypass_method": "parameter manipulation of the file ID (an alphanumeric value)",
+      "exposed_data": [
+        "private files"
+      ],
+      "authorization_check": "missing or broken authorization check on file access by file ID",
+      "impact_scope": "any authenticated user who knew the specific file ID could access other users' files"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": "horizontal privilege escalation by accessing information not associated with the current user",
+      "exposed_data": null,
+      "authorization_check": "missing or broken horizontal access control allowing users who completed ID-verification and background check to access other users' information",
+      "impact_scope": "users who have completed both ID-verification and background check"
+    },
+    {
+      "endpoint": null,
+      "parameter": null,
+      "bypass_method": null,
+      "exposed_data": null,
+      "authorization_check": null,
+      "impact_scope": "all users"
+    },
+    {
+      "endpoint": "/php/filter_user_tab_content.php",
+      "parameter": "user_id",
+      "bypass_method": "parameter manipulation (changing user_id to any other user's id)",
+      "exposed_data": [
+        "Subscription ID",
+        "Purchased Date",
+        "Validity of Zomato Treats"
+      ],
+      "authorization_check": "Missing authorization check to verify that the requesting user is allowed to access the subscription data of the specified user_id",
+      "impact_scope": "all users (any logged-in user can view treat subscriptions of any other user)"
+    },
+    {
+      "endpoint": "profile.autodesk.com Edit Photo functionality",
+      "parameter": "id",
+      "bypass_method": "Parameter manipulation allowing editing another user's photo",
+      "exposed_data": [
+        "profile picture"
+      ],
+      "authorization_check": "Missing or broken authorization check on 'id' parameter to verify user ownership before allowing profile picture change",
+      "impact_scope": "All users (an attacker could change any user's profile picture)"
+    },
+    {
+      "endpoint": "TikTok Shop endpoint",
+      "parameter": null,
+      "bypass_method": "improper access control allowing arbitrary products to be added to livestreams",
+      "exposed_data": null,
+      "authorization_check": "missing or broken access control on the endpoint allowing unauthorized product addition",
+      "impact_scope": "any livestream (potentially affecting all livestreams)"
+    },
+    {
+      "endpoint": "/",
+      "parameter": "subredditName",
+      "bypass_method": "Parameter manipulation by changing subredditName to any target public or restricted subreddit",
+      "exposed_data": [
+        "moderator logs (mod logs)"
+      ],
+      "authorization_check": "No check if the user is a moderator of the particular subreddit when accessing mod logs",
+      "impact_scope": "All users (any authenticated user can access mod logs of any public or restricted subreddit)"
+    },
+    {
+      "endpoint": null,
+      "parameter": "id",
+      "bypass_method": "parameter manipulation",
+      "exposed_data": [
+        "user profile information"
+      ],
+      "authorization_check": "missing or broken authorization check on the 'id' parameter allowing unauthorized access to other users' profiles",
+      "impact_scope": "all users (unauthorized modifications to other users' profiles)"
+    },
+    {
+      "endpoint": "TikTok Ads endpoint",
+      "parameter": null,
+      "bypass_method": "Insecure Direct Object Reference (IDOR) allowing unauthorized user to add products into another user's catalogue",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check to verify ownership or permission to modify the catalogue",
+      "impact_scope": "Specific users other than the catalogue owner (unauthorized users)"
+    },
+    {
+      "endpoint": null,
+      "parameter": "report IDs",
+      "bypass_method": "Passing report IDs that a user wouldn't have access to in the CSV export request",
+      "exposed_data": [
+        "IDs of Custom Field Attributes of Programs"
+      ],
+      "authorization_check": "Authorization check passed when user was signed in without verifying access to specific report IDs",
+      "impact_scope": "Users signed in to hackerone.com with access to the CSV export feature"
+    },
+    {
+      "endpoint": "CreateOrUpdateHackerCertification GraphQL query",
+      "parameter": "ID",
+      "bypass_method": "Parameter manipulation by changing the ID number in the GraphQL query",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken authorization check allowing users to modify or delete Licenses and certifications of other users by changing the ID parameter",
+      "impact_scope": "All users' Licenses and certifications in HackerOne"
+    },
+    {
+      "endpoint": "/bugs.json",
+      "parameter": [
+        "organization ID",
+        "limit",
+        "page",
+        "substates[]",
+        "text_query"
+      ],
+      "bypass_method": "Parameter manipulation by replacing organization ID and using parameters like limit, page, and substates[] to access private reports of other organizations",
+      "exposed_data": [
+        "private report details including title, url, id, state, substate, severity_rating, readable_substate, created_at, submitted_at, reporter_name"
+      ],
+      "authorization_check": "Missing or broken authorization check on organization ID parameter allowing cross-organizational data access",
+      "impact_scope": "Multiple organizations' private reports accessible, potentially all users within those organizations"
+    },
+    {
+      "endpoint": [
+        "GET /v1/config",
+        "PUT /v1/bidding"
+      ],
+      "parameter": [
+        "trip_id"
+      ],
+      "bypass_method": "Chaining two unauthenticated endpoints to generate a hash and place a forged bid, allowing manipulation of another customer's fare without authorization",
+      "exposed_data": null,
+      "authorization_check": "Lack of authorization check in backend logic to verify that the user is allowed to modify the fare for the specified trip",
+      "impact_scope": "Any malicious passenger or driver acting as a passenger can increase the fare of another customer's ride"
+    },
+    {
+      "endpoint": "/api/v1/users/current?",
+      "parameter": "user ID or username (manipulated in the URL path after /api/v1/users/)",
+      "bypass_method": "Parameter manipulation by replacing 'current?' with another user's ID or username in the URL path",
+      "exposed_data": [
+        "personal information",
+        "order information",
+        "user data"
+      ],
+      "authorization_check": "Missing or broken authorization check to verify that the requesting user is allowed to access the specified user's data",
+      "impact_scope": "All users (an attacker can access information of any user by changing the user identifier)"
+    },
+    {
+      "endpoint": "https://cpanel.hostinger.com/billing/change-order-period",
+      "parameter": null,
+      "bypass_method": "parameter manipulation",
+      "exposed_data": null,
+      "authorization_check": "user order validation missing",
+      "impact_scope": "other users' orders"
+    },
+    {
+      "endpoint": "/voyager/api/voyagerPublishingDashSeriesSubscribers",
+      "parameter": "seriesUrn",
+      "bypass_method": "Parameter manipulation by replaying the vulnerable request with a victim's public NewsletterId",
+      "exposed_data": [
+        "subscriber list",
+        "subscriber details"
+      ],
+      "authorization_check": "Missing server-side authorization checks on the GET request to verify ownership or permission to view subscriber lists",
+      "impact_scope": "All users (an attacker can view subscriber lists of other users' newsletters)"
+    },
+    {
+      "endpoint": "https://hackerone.com/settings/teams (GraphQL POST request)",
+      "parameter": "team_member_id",
+      "bypass_method": "Parameter manipulation by changing the base64-encoded team_member_id to another team member's ID",
+      "exposed_data": null,
+      "authorization_check": "Missing or broken check to ensure only the profile owner can change their own visibility settings; other team members (including co-admins) were able to modify visibility settings of other team members",
+      "impact_scope": "Specific roles - other team members within the same team, including co-admins"
+    },
+    {
+      "endpoint": null,
+      "parameter": "2 parameters (names not specified)",
+      "bypass_method": "Parameter manipulation to edit other users' blogs/websites",
+      "exposed_data": [
+        "website/blog information"
+      ],
+      "authorization_check": "Missing or broken authorization check allowing editing of any user's blogs/websites",
+      "impact_scope": "All users (ability to edit anyone's blogs/websites)"
+    },
+    {
+      "endpoint": "/en-us/api/v1/lead/id:929-HVV-335&token:_mch-acronis.com-<integer value>",
+      "parameter": "token",
+      "bypass_method": "Predictable token value (integer) allowed guessing other users' tokens to access their data without proper authorization",
+      "exposed_data": [
+        "company name",
+        "user name",
+        "surname",
+        "telephone number",
+        "private account information"
+      ],
+      "authorization_check": "Missing or broken authorization check to verify token ownership or user identity before returning sensitive data",
+      "impact_scope": "All users with accounts using this API endpoint, specifically those registered via the partners registration form and cyber cloud accounts"
+    },
+    {
+      "endpoint": "/web-client/api/orders/stats/query",
+      "parameter": "orderKeys",
+      "bypass_method": "Parameter manipulation by changing the value of 'orderKeys' in the POST request body",
+      "exposed_data": [
+        "order statistics"
+      ],
+      "authorization_check": "Missing or broken authorization check allowing access to order statistics by supplying arbitrary 'orderKeys' UUIDs without verifying user permissions",
+      "impact_scope": "Users with previously authorized access (e.g., former 'Member' role users) can access order statistics; potential for attackers to guess UUIDs but with low probability due to high entropy"
+    }
+  ],
+  "generated_at": "2025-09-09T00:08:36.153574"
+}

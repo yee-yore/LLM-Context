@@ -1,5 +1,5 @@
 {
-  "description": "Idor 관련 사례를 총합해놓은 컨텍스트",
+  "description": "IDOR Cases (src: HackerOne)",
   "vulnerability_type": "idor",
   "total_cases": 257,
   "cases": [

